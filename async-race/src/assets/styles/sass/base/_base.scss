@@ -1,0 +1,41 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  @extend %font-prim;
+  @include font($size: 1.4rem, $height: 2.6rem, $weight: normal);
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+h1 {
+  @extend %font-prim;
+  @include font($size: 3.4rem, $height: 4.4rem);
+}
+
+h2 {
+  @include font($size: 2.4rem, $height: 3.6rem);
+}
+
+h3 {
+  @include font($size: 1.8rem, $height: 2.4rem);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(221, 218, 213);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3f4244;
+  border-radius: 20px;
+  border: 2px solid rgb(221, 218, 213);
+}
