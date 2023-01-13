@@ -2,7 +2,7 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
 
@@ -17,18 +17,13 @@ const optimization = () => {
   };
 
   if (isProd) {
-    config.minimizer = [
-      new CssMinimizerPlugin(),
-      new TerserWebpackPlugin(),
-    ];
+    config.minimizer = [new CssMinimizerPlugin(), new TerserWebpackPlugin()];
   }
 
   return config;
 };
 
-const filename = ext => isDev
-  ? `[name].${ext}`
-  : `[name].[contenthash].${ext}`;
+const filename = (ext) => (isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`);
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -39,7 +34,7 @@ module.exports = {
   output: {
     filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '',
   },
   resolve: {
     extensions: ['.js', '.json', '.tsx', '.ts', '.js'],
@@ -70,7 +65,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: filename('css'),
     }),
-    new EslintPlugin({ extensions: 'ts' }),
+    new EslintPlugin(),
   ],
   module: {
     rules: [
@@ -80,9 +75,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.css$/,
