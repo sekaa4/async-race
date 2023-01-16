@@ -10,7 +10,7 @@ export default function createListCars(): HTMLDivElement {
     classes: [ConstantsDom.RACE_LIST],
   });
 
-  const data: Data = <Data>persistentStorage.getItem('data');
+  const data: Data = <Data>persistentStorage.getItem('data-cars');
   data.forEach((car: DataObject) => {
     const carOnList: HTMLDivElement = createCarOnRace(car);
     raceListDiv.append(carOnList);

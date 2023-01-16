@@ -1,0 +1,12 @@
+export { default as getCars } from './garage/getCars';
+export { default as getCar } from './garage/getCar';
+export { default as createCar } from './garage/createCar';
+export { default as deleteCar } from './garage/deleteCar';
+export { default as updateCar } from './garage/updateCar';
+export { default as startStopEngine } from './garage/startStopEngine';
+export { default as switchCarEngine } from './garage/switchCarEngine';
+export { default as getWinners } from './winners/getWinners';
+export { default as getWinner } from './winners/getWinner';
+export { default as createWinner } from './winners/createWinner';
+export { default as deleteWinner } from './winners/deleteWinner';
+export { default as updateWinner } from './winners/updateWinner';
