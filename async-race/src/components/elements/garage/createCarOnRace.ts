@@ -9,7 +9,7 @@ export default function createCarOnRace(car: DataObject): HTMLDivElement {
     classes: [ConstantsDom.CAR_ON_RACE],
   });
 
-  const chooseButtons: HTMLDivElement = createChooseButtons();
+  const chooseButtons: HTMLDivElement = createChooseButtons(car);
   const controlCar: HTMLDivElement = createControlCar(car);
 
   carOnTrack.append(chooseButtons, controlCar);
