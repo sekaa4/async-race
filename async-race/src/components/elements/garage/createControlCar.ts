@@ -1,6 +1,8 @@
 import DataObject from '../../../interfaces/DataObject';
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
+import '../../../assets/icons/car.svg';
+import '../../../assets/icons/flag.svg';
 
 export default function createControlCar(car: DataObject): HTMLDivElement {
   const controlCar: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
@@ -17,14 +19,23 @@ export default function createControlCar(car: DataObject): HTMLDivElement {
   const carImgDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CONTROL_CAR_IMG],
   });
-  carImg.style.color = car.color;
+  const svgCar: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const useSvgCar = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  useSvgCar.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#car`);
+  const svgFinish: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const useSvgFinish = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  svgCar.setAttribute('width', '11rem');
+  svgCar.setAttribute('height', '7.5rem');
+  svgCar.setAttribute('class', 'car');
+  svgCar.setAttribute('fill', `${car.color}`);
+  svgCar.append(useSvgCar);
+  carImgDiv.append(svgCar);
+  useSvgFinish.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#flag`);
+  svgFinish.setAttribute('width', '10rem');
+  svgFinish.setAttribute('class', 'finish');
+  svgFinish.append(useSvgFinish);
 
-  const finishImg: HTMLImageElement = createElement(ConstantsDom.IMG, HTMLImageElement, {
-    classes: [ConstantsDom.FINISH_IMAGE, ConstantsDom.IMG],
-    attributes: [['alt', 'finish']],
-  });
-
-  controlCar.append(buttonStart, buttonStop, carImg, finishImg);
-
+  carImgDiv.append(svgFinish);
+  controlCar.append(buttonStart, buttonStop, carImgDiv);
   return controlCar;
 }

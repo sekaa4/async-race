@@ -1,7 +1,8 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
+import DataObject from '../../../interfaces/DataObject';
 
-export default function createChooseButtons(): HTMLDivElement {
+export default function createChooseButtons(car: DataObject): HTMLDivElement {
   const chooseButtons: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CHOOSE_BUTTON, ConstantsDom.RACE_LIST_CHOOSE_BUTTON],
   });
@@ -18,7 +19,7 @@ export default function createChooseButtons(): HTMLDivElement {
 
   const nameCar: HTMLSpanElement = createElement(ConstantsDom.SPAN, HTMLSpanElement, {
     classes: [ConstantsDom.NAME_CAR],
-    text: `nameCAR${0}`,
+    text: `${car.name}`,
   });
 
   chooseButtons.append(buttonSelect, buttonRemove, nameCar);

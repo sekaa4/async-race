@@ -107,6 +107,10 @@ module.exports = {
         },
       },
       {
+        test: /\.svg$/,
+        use: "svg-sprite-loader"
+      },
+      {
         test: /\.(mp3|ogg)$/,
         type: 'asset',
       },
