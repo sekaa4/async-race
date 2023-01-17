@@ -17,12 +17,12 @@ export default function renderHeader(): HTMLElement {
   });
 
   const buttonGarage: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
-    classes: [ConstantsDom.HEADER_BUTTON_GARAGE, ConstantsDom.BUTTON],
+    classes: [ConstantsDom.HEADER__BUTTON, ConstantsDom.BUTTON],
     text: 'TO GARAGE',
   });
 
   const buttonWinners: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
-    classes: [ConstantsDom.HEADER_BUTTON_WINNERS, ConstantsDom.BUTTON],
+    classes: [ConstantsDom.HEADER__BUTTON, ConstantsDom.BUTTON],
     text: 'TO WINNERS',
   });
 

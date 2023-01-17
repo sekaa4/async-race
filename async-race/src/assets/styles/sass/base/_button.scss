@@ -1,0 +1,40 @@
+.button {
+  @extend %font-prim;
+  padding: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 0.7rem;
+  height: 3.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  background: $color-border;
+  border: 1px solid $color-border;
+  color: $color-text;
+
+  &:hover {
+    background: $color-hovered;
+    border-color: $color-hovered;
+  }
+
+  &:disabled {
+    background: $color-hovered;
+    border-color: $color-hovered;
+  }
+}
+
+.header-button__garage {
+}
+
+.button-line,
+.create-line,
+.update-line {
+  display: flex;
+  column-gap: 3rem;
+}
+
+.button-engine {
+  height: 4rem;
+}

@@ -7,17 +7,15 @@ export default function createControlCar(car: DataObject): HTMLDivElement {
     classes: [ConstantsDom.CONTROL_CAR],
   });
   const buttonStart: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
-    classes: [ConstantsDom.BUTTON_LINE_RACE, ConstantsDom.BUTTON],
+    classes: [ConstantsDom.BUTTON_ENGINE, ConstantsDom.BUTTON],
     text: 'A',
   });
   const buttonStop: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
-    classes: [ConstantsDom.BUTTON_LINE_RESET, ConstantsDom.BUTTON],
+    classes: [ConstantsDom.BUTTON_ENGINE, ConstantsDom.BUTTON],
     text: 'B',
   });
-
-  const carImg: HTMLImageElement = createElement(ConstantsDom.IMG, HTMLImageElement, {
-    classes: [ConstantsDom.CAR_IMAGE, ConstantsDom.IMG],
-    attributes: [['alt', 'car']],
+  const carImgDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
+    classes: [ConstantsDom.CONTROL_CAR_IMG],
   });
   carImg.style.color = car.color;
 

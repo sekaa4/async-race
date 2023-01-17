@@ -1,0 +1,13 @@
+.input {
+  border: 1px solid #e6e6e6;
+  box-sizing: border-box;
+  padding: 0 1.3rem;
+
+  &:focus {
+    border-color: green;
+  }
+}
+
+.input-color {
+  height: auto;
+}
