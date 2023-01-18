@@ -1,5 +1,9 @@
 {
-  "plugins": ["@typescript-eslint", "prettier", "import"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "import"
+  ],
   "extends": [
     "prettier",
     "plugin:prettier/recommended",
@@ -18,11 +22,22 @@
     "browser": true,
     "node": true
   },
-  "ignorePatterns": ["webpack.config.js", "postcss.config.js"],
+  "ignorePatterns": [
+    "webpack.config.js",
+    "postcss.config.js"
+  ],
   "rules": {
     "no-debugger": "off",
     "no-console": 1,
     "class-methods-use-this": "off",
+    // "import/no-cycle": [
+    //   [
+    //     2,
+    //     {
+    //       "maxDepth": 1
+    //     }
+    //   ]
+    // ],
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-var-requires": "warn"
   },

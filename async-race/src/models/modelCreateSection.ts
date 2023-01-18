@@ -1,28 +1,37 @@
 import * as api from '../api/api';
-// import ControllerCarSection from '../components/controller/ControllerCarSection';
 import DataObject from '../interfaces/DataObject';
 import ReturnObj from '../interfaces/ReturnObj';
 import Data from '../interfaces/Data.type';
 import UpdateData from '../interfaces/UpdateData';
+import Constant from './Constant';
 
 interface CreateSection {
-  createCarModel(name: string, color: string): void;
+  createCarModel(name: string, color: string): Promise<ReturnObj | null>;
 
   // updateCar(name: string, color: string);
 }
 
 class ModelCreateSection implements CreateSection {
-  async createCarModel(name: string, color: string) {
-    const body: UpdateData = {
-      name,
-      color,
-    };
+  async createCarModel(name: string, color: string): Promise<ReturnObj | null> {
+    try {
+      const body: UpdateData = {
+        name,
+        color,
+      };
 
-    const newCar: DataObject | null = await api.createCar(body);
-    return newCar;
+      const newCar: DataObject | null = await api.createCar(body);
+      const dataCars: null | ReturnObj = await api.getCars([{ key: '_limit', value: `${Constant.SEVEN}` }]);
+
+      if (dataCars && dataCars.count) {
+        const { count, data } = dataCars;
+        return { newCar, count, data };
+      }
+      return null;
+    } catch (error) {
+      return null;
+    }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async updateCarModel(name: string, color: string): Promise<DataObject | null> {
     const body: UpdateData = {
       name,

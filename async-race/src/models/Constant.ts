@@ -1,4 +1,5 @@
 enum Constant {
+  ZERO = 0,
   ONE = 1,
   SEVEN = 7,
   STATUSCODE200 = 200,
@@ -6,6 +7,8 @@ enum Constant {
   ERRORCODE400 = 400,
   ERRORCODE404 = 404,
   ERRORCODE500 = 500,
+  SELECT = 'SELECT',
+  REMOVE = 'REMOVE',
 }
 
 export default Constant;

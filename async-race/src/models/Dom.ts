@@ -59,6 +59,8 @@ enum ConstantsDom {
   BUTTON_LINE_GENERATE = 'button-line__generate',
   RACE_TITLE = 'race-title',
   RACE_LIST = 'race-list',
+  RACE_TITLE_PAGE = 'race__title-page',
+  TITLE_PAGE = 'title-page',
   TITLE_TEXT = 'title-text',
   CAR_ON_RACE = 'car-on-race',
   RACE_LIST_CHOOSE_BUTTON = 'race-list__choose-button',

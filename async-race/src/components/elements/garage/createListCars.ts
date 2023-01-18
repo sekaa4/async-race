@@ -8,10 +8,12 @@ export const raceListDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLD
   classes: [ConstantsDom.RACE_LIST],
 });
 
-export default function createListCars(data: Data): HTMLDivElement {
+export default function createListCars(data: Data, page: number): HTMLDivElement {
+  // raceListDiv.innerText = '';
+
   data.forEach((car: DataObject) => {
-    const carOnList: HTMLDivElement = createCarOnRace(car);
-    raceListDiv.append(carOnList);
+    const carOnTrack: HTMLDivElement = createCarOnRace(car, page);
+    raceListDiv.append(carOnTrack);
   });
 
   return raceListDiv;

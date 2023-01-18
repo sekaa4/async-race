@@ -1,9 +1,6 @@
 import CreateElementWrapper from '../CreateElementWrapper';
 import createElement from '../createElement';
 import ConstantsDom from '../../../models/Dom';
-import createCarLine from './createCarLine';
-import createUpdateLine from './createUpdateLine';
-import createButtonLine from './createButtonLine';
 
 export default function createCarSection(): HTMLElement {
   const carSection: HTMLElement = createElement(ConstantsDom.SECTION, HTMLElement, {
@@ -20,11 +17,5 @@ export default function createCarSection(): HTMLElement {
     classes: [ConstantsDom.CAR, ConstantsDom.MAIN_CAR],
   });
 
-  const carLine: HTMLDivElement = createCarLine();
-  const updateLine: HTMLDivElement = createUpdateLine();
-  const buttonLine: HTMLDivElement = createButtonLine();
-
-  createCarDiv.append(carLine, updateLine, buttonLine);
-
-  return carSection;
+  return createCarDiv;
 }

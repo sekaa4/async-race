@@ -1,12 +1,10 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
-import controllerCarSection from '../../controller/ControllerCarSection';
-import DataObject from '../../../interfaces/DataObject';
-import createCarOnRace from './createCarOnRace';
-import { raceListDiv } from './createListCars';
-import Constant from '../../../models/Constant';
 
-export default function createCarLine(): HTMLDivElement {
+// eslint-disable-next-line import/no-cycle
+import createButtonHandler from '../../controller/handlersCarSectionListeners';
+
+export default function createCarLine(page: number): HTMLDivElement {
   const carLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CAR_CREATE_LINE, ConstantsDom.CREATE_LINE],
   });
@@ -27,14 +25,7 @@ export default function createCarLine(): HTMLDivElement {
   });
 
   createButton.addEventListener('click', async (e: MouseEvent) => {
-    const newCar: DataObject | null = await controllerCarSection.createHandler(e, inputText, inputColor);
-    if (newCar) {
-      const length: number = raceListDiv.childElementCount;
-      if (length < Constant.SEVEN) {
-        const carOnRace: HTMLDivElement = createCarOnRace(newCar);
-        raceListDiv.append(carOnRace);
-      }
-    }
+    await createButtonHandler(e, inputText, inputColor, page);
   });
 
   carLineDiv.append(inputText, inputColor, createButton);

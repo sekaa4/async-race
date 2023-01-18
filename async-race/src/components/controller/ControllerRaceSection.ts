@@ -1,10 +1,8 @@
-import DataObject from '../../interfaces/DataObject';
-import modelCarSection from '../../models/modelCreateSection';
+import modelRaceSection from '../../models/modelRaceSection';
+import ReturnObj from '../../interfaces/ReturnObj';
 
 interface ControllerCarSection {
-  selectHandler(e: MouseEvent, inpputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<DataObject | null>;
-
-  removeHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<DataObject | null>;
+  removeHandler(id: number, page: number): Promise<ReturnObj | null>;
 
   // startHandler();
 
@@ -12,36 +10,12 @@ interface ControllerCarSection {
 }
 
 class ControllerCarSection implements ControllerCarSection {
-  async selectHandler(
-    e: MouseEvent,
-    inputText: HTMLInputElement,
-    inputColor: HTMLInputElement
-  ): Promise<DataObject | null> {
-    const target: HTMLButtonElement = <HTMLButtonElement>e.target;
-    if (target.innerText === 'CREATE') {
-      target.disabled = true;
-      const valueText = inputText.value;
-      const valueColor = inputColor.value;
-      const newCar: DataObject | null = await modelCarSection.createCarModel(valueText, valueColor);
-      target.disabled = false;
-      return newCar;
-    }
-    target.disabled = false;
-    return null;
-  }
-
-  async removeHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement) {
-    const target: HTMLButtonElement = <HTMLButtonElement>e.target;
+  async removeHandler(id: number, page: number): Promise<ReturnObj | null> {
     try {
-      if (target.innerText === 'UPDATE') {
-        target.disabled = true;
-        const valueText = inputText.value;
-        const valueColor = inputColor.value;
-        const selectCar: DataObject | null = await modelCarSection.updateCarModel(valueText, valueColor);
-        target.disabled = false;
-        return selectCar;
+      const isRemove: ReturnObj | null = await modelRaceSection.removeButtonModel(id, page);
+      if (isRemove) {
+        return isRemove;
       }
-      target.disabled = false;
       return null;
     } catch (err) {
       return null;

@@ -9,9 +9,9 @@ import ReturnObj from '../../interfaces/ReturnObj';
       { key: '_limit', value: `${Constant.SEVEN}` },
       { key: '_page', value: `${Constant.ONE}` },
     ]);
-    if (dataCars && dataCars.count) {
+    if (dataCars && (dataCars.count || dataCars.count === 0)) {
       const { count, data } = dataCars;
-      buildPage(count, data);
+      buildPage(count, data, Constant.ONE);
     }
   } catch (err) {
     // eslint-disable-next-line no-console

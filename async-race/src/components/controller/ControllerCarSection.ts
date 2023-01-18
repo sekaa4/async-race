@@ -1,8 +1,9 @@
 import DataObject from '../../interfaces/DataObject';
+import ReturnObj from '../../interfaces/ReturnObj';
 import modelCarSection from '../../models/modelCreateSection';
 
 interface ControllerCarSection {
-  createHandler(e: MouseEvent, inpputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<DataObject | null>;
+  createHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<ReturnObj | null>;
 
   updateHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<DataObject | null>;
 
@@ -18,13 +19,13 @@ class ControllerCarSection implements ControllerCarSection {
     e: MouseEvent,
     inputText: HTMLInputElement,
     inputColor: HTMLInputElement
-  ): Promise<DataObject | null> {
+  ): Promise<ReturnObj | null> {
     const target: HTMLButtonElement = <HTMLButtonElement>e.target;
     if (target.innerText === 'CREATE') {
       target.disabled = true;
       const valueText = inputText.value;
       const valueColor = inputColor.value;
-      const newCar: DataObject | null = await modelCarSection.createCarModel(valueText, valueColor);
+      const newCar: ReturnObj | null = await modelCarSection.createCarModel(valueText, valueColor);
       target.disabled = false;
       return newCar;
     }
