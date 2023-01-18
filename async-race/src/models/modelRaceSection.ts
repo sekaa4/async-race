@@ -1,25 +1,24 @@
 import * as api from '../api/api';
 import DataObject from '../interfaces/DataObject';
 import ReturnObj from '../interfaces/ReturnObj';
-import UpdateData from '../interfaces/UpdateData';
+// import UpdateData from '../interfaces/UpdateData';
 import checkCar from '../utils/checkCar';
 import Constant from './Constant';
 
 interface RaceSection {
-  selectButtonModel(name: string, color: string): void;
-
+  selectButtonModel(id: number): Promise<DataObject | null>;
+  removeButtonModel(id: number, page: number): Promise<ReturnObj | null>;
   // updateCar(name: string, color: string);
 }
 
 class ModelRaceSection implements RaceSection {
-  async selectButtonModel(name: string, color: string) {
-    const body: UpdateData = {
-      name,
-      color,
-    };
-
-    const newCar: DataObject | null = await api.createCar(body);
-    return newCar;
+  async selectButtonModel(id: number): Promise<DataObject | null> {
+    try {
+      const selectCar: DataObject | null = await api.getCar(id);
+      return selectCar;
+    } catch (error) {
+      return null;
+    }
   }
 
   async removeButtonModel(id: number, page: number): Promise<ReturnObj | null> {

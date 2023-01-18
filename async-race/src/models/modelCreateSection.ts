@@ -2,13 +2,15 @@ import * as api from '../api/api';
 import DataObject from '../interfaces/DataObject';
 import ReturnObj from '../interfaces/ReturnObj';
 import Data from '../interfaces/Data.type';
+import RandomData from '../interfaces/RandomData';
 import UpdateData from '../interfaces/UpdateData';
 import Constant from './Constant';
+import randomDataCars from '../utils/randomDataCars';
 
 interface CreateSection {
   createCarModel(name: string, color: string): Promise<ReturnObj | null>;
-
-  // updateCar(name: string, color: string);
+  generateCarModel(name: string, color: string): Promise<RandomData | null>;
+  updateCarModel(name: string, color: string, oldName: string): Promise<DataObject | null>;
 }
 
 class ModelCreateSection implements CreateSection {
@@ -22,7 +24,7 @@ class ModelCreateSection implements CreateSection {
       const newCar: DataObject | null = await api.createCar(body);
       const dataCars: null | ReturnObj = await api.getCars([{ key: '_limit', value: `${Constant.SEVEN}` }]);
 
-      if (dataCars && dataCars.count) {
+      if (dataCars && (dataCars.count || dataCars.count === 0)) {
         const { count, data } = dataCars;
         return { newCar, count, data };
       }
@@ -32,7 +34,7 @@ class ModelCreateSection implements CreateSection {
     }
   }
 
-  async updateCarModel(name: string, color: string): Promise<DataObject | null> {
+  async updateCarModel(name: string, color: string, oldName?: string): Promise<DataObject | null> {
     const body: UpdateData = {
       name,
       color,
@@ -41,7 +43,9 @@ class ModelCreateSection implements CreateSection {
       const dataCars: null | ReturnObj = await api.getCars();
       if (dataCars) {
         const carsArr: Data = dataCars.data;
-        const car: DataObject | undefined = carsArr.find((carObj: DataObject) => carObj.name === name);
+        const car: DataObject | undefined = carsArr.find((carObj: DataObject) =>
+          oldName ? carObj.name === oldName : carObj.name === name
+        );
         if (car && car.id) {
           const selectCar: null | DataObject = await api.updateCar(car.id, body);
           return selectCar || null;
@@ -49,6 +53,31 @@ class ModelCreateSection implements CreateSection {
         return null;
       }
       return null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async generateCarModel(): Promise<RandomData | null> {
+    try {
+      const randomData: UpdateData[] = randomDataCars();
+
+      const randomCarsArray: (DataObject | null)[] = await Promise.all(
+        randomData.map(async (dataCar: UpdateData) => {
+          return api.createCar(dataCar);
+        })
+      );
+      const randomCarsData: Data = randomCarsArray.filter((dataCar) => dataCar || false) as Data;
+
+      const dataCars: null | ReturnObj = await api.getCars([{ key: '_limit', value: `${Constant.SEVEN}` }]);
+
+      if (dataCars && (dataCars.count || dataCars.count === 0)) {
+        const { count } = dataCars;
+        return { randomCarsData, count };
+      }
+
+      return null;
+      // return randomCarsArray.includes(null) ? await this.generateCarModel() : (randomCarsArray as DataObject[]);
     } catch (err) {
       return null;
     }

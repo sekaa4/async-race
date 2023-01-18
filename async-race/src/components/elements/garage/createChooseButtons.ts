@@ -19,6 +19,7 @@ export default function createChooseButtons(car: DataObject): HTMLDivElement {
 
   const nameCar: HTMLSpanElement = createElement(ConstantsDom.SPAN, HTMLSpanElement, {
     classes: [ConstantsDom.NAME_CAR],
+    attributes: [['data-name', `${car.name}`]],
     text: `${car.name}`,
   });
 

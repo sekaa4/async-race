@@ -1,3 +1,5 @@
+// import Data from '../../interfaces/Data.type';
+import RandomData from '../../interfaces/RandomData';
 import DataObject from '../../interfaces/DataObject';
 import ReturnObj from '../../interfaces/ReturnObj';
 import modelCarSection from '../../models/modelCreateSection';
@@ -5,13 +7,18 @@ import modelCarSection from '../../models/modelCreateSection';
 interface ControllerCarSection {
   createHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<ReturnObj | null>;
 
-  updateHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<DataObject | null>;
+  updateHandler(
+    e: MouseEvent,
+    inputText: HTMLInputElement,
+    inputColor: HTMLInputElement,
+    oldName?: string
+  ): Promise<DataObject | null>;
 
   // raceHandler();
 
   // resetHandler();
 
-  // generateHandler();
+  generateHandler(): Promise<RandomData | null>;
 }
 
 class ControllerCarSection implements ControllerCarSection {
@@ -33,14 +40,14 @@ class ControllerCarSection implements ControllerCarSection {
     return null;
   }
 
-  async updateHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement) {
+  async updateHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement, oldName?: string) {
     const target: HTMLButtonElement = <HTMLButtonElement>e.target;
     try {
       if (target.innerText === 'UPDATE') {
         target.disabled = true;
         const valueText = inputText.value;
         const valueColor = inputColor.value;
-        const selectCar: DataObject | null = await modelCarSection.updateCarModel(valueText, valueColor);
+        const selectCar: DataObject | null = await modelCarSection.updateCarModel(valueText, valueColor, oldName);
         target.disabled = false;
         return selectCar;
       }
@@ -55,7 +62,14 @@ class ControllerCarSection implements ControllerCarSection {
 
   // resetHandler() {}
 
-  // generateHandler() {}
+  async generateHandler(): Promise<RandomData | null> {
+    try {
+      const generateCars: RandomData | null = await modelCarSection.generateCarModel();
+      return generateCars;
+    } catch (error) {
+      return null;
+    }
+  }
 }
 
 const controllerCarSection = new ControllerCarSection();

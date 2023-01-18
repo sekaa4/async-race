@@ -1,7 +1,8 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
+import buttonLineHandler from '../../controller/carButtonsHandler';
 
-export default function createButtonLine(): HTMLDivElement {
+export default function createButtonLine(page: number): HTMLDivElement {
   const carButtonLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CAR_BUTTON_LINE, ConstantsDom.BUTTON_LINE],
   });
@@ -22,6 +23,6 @@ export default function createButtonLine(): HTMLDivElement {
   });
 
   carButtonLineDiv.append(buttonRace, buttonReset, buttonGenerate);
-
+  carButtonLineDiv.addEventListener('click', (e: MouseEvent) => buttonLineHandler(e, page));
   return carButtonLineDiv;
 }

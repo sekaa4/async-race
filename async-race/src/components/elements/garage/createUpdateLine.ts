@@ -24,10 +24,20 @@ export function createUpdateLine(): HTMLDivElement {
   });
 
   updateButton.addEventListener('click', async (e: MouseEvent) => {
-    const selectCar: null | DataObject = await controllerCarSection.updateHandler(e, inputUpdateText, inputUpdateColor);
+    const oldName = inputUpdateText.dataset.prevName;
+    const selectCar: null | DataObject = await controllerCarSection.updateHandler(
+      e,
+      inputUpdateText,
+      inputUpdateColor,
+      oldName
+    );
     if (selectCar) {
-      const carElem: HTMLElement = <HTMLElement>document.getElementById(selectCar.id.toString());
-      carElem.setAttribute('fill', selectCar.color.toString());
+      const carColorElem: HTMLElement = <HTMLElement>document.getElementById(selectCar.id.toString());
+      const carNameElem: HTMLElement = <HTMLElement>document.querySelector(`[data-name='${oldName}']`);
+      carColorElem.setAttribute('fill', selectCar.color.toString());
+      carNameElem.innerText = selectCar.name;
+      carNameElem.dataset.name = selectCar.name;
+      inputUpdateText.dataset.prevName = selectCar.name;
     }
   });
 

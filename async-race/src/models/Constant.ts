@@ -1,14 +1,21 @@
 enum Constant {
   ZERO = 0,
   ONE = 1,
+  SIX = 6,
   SEVEN = 7,
+  ONEHUNDRED = 100,
   STATUSCODE200 = 200,
   STATUSCODE201 = 201,
   ERRORCODE400 = 400,
   ERRORCODE404 = 404,
   ERRORCODE500 = 500,
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE',
   SELECT = 'SELECT',
   REMOVE = 'REMOVE',
+  RACE = 'RACE',
+  RESET = 'RESET',
+  GENERATE = 'GENERATE',
 }
 
 export default Constant;

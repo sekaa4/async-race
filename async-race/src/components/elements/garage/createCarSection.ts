@@ -1,8 +1,11 @@
 import CreateElementWrapper from '../CreateElementWrapper';
 import createElement from '../createElement';
 import ConstantsDom from '../../../models/Dom';
+import createButtonLine from './createButtonLine';
+import createCarLine from './createCarLine';
+import { createUpdateLine } from './createUpdateLine';
 
-export default function createCarSection(): HTMLElement {
+export default function createCarSection(page: number): HTMLElement {
   const carSection: HTMLElement = createElement(ConstantsDom.SECTION, HTMLElement, {
     classes: [ConstantsDom.SECTION, ConstantsDom.MAIN_SECTION],
   });
@@ -17,5 +20,10 @@ export default function createCarSection(): HTMLElement {
     classes: [ConstantsDom.CAR, ConstantsDom.MAIN_CAR],
   });
 
-  return createCarDiv;
+  const carLine: HTMLDivElement = createCarLine(page);
+  const updateLine: HTMLDivElement = createUpdateLine();
+  const buttonLine: HTMLDivElement = createButtonLine(page);
+  createCarDiv.append(carLine, updateLine, buttonLine);
+
+  return carSection;
 }

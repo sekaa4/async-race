@@ -4,12 +4,12 @@ import createElement from '../createElement';
 import createChooseButtons from './createChooseButtons';
 import createControlCar from './createControlCar';
 // eslint-disable-next-line import/no-cycle
-import chooseButtonsHandler from '../../controller/chooseButtonsHandler';
+import chooseButtonsHandler from '../../controller/raceButtonsHandler';
 
 export default function createCarOnRace(car: DataObject, page: number): HTMLDivElement {
   const carOnTrack: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CAR_ON_RACE],
-    attributes: [['data-name', `${car.name}`]],
+    attributes: [['data-id', `${car.id}`]],
   });
 
   const chooseButtons: HTMLDivElement = createChooseButtons(car);

@@ -13,10 +13,20 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
   try {
     if (target instanceof HTMLButtonElement && currentTarget instanceof HTMLElement) {
       const raceCarsList = <HTMLDivElement>currentTarget.parentElement;
+      const allSelectButtonsElements = raceCarsList.querySelectorAll('.choose-button__select');
+      allSelectButtonsElements.forEach((element) =>
+        element.classList.contains('car-active') ? element.classList.remove('car-active') : false
+      );
       switch (target.innerText) {
         case Constant.SELECT: {
-          inputUpdateColor.value = car.color;
-          inputUpdateText.value = car.name;
+          target.classList.toggle('car-active');
+          const carsOnPage: DataObject | null = await controllerRaceSection.selectHandler(car.id);
+          if (carsOnPage && target.classList.contains('car-active')) {
+            inputUpdateColor.value = carsOnPage.color;
+            inputUpdateText.value = carsOnPage.name;
+            inputUpdateText.dataset.prevName = carsOnPage.name;
+          }
+
           break;
         }
         case Constant.REMOVE: {
@@ -43,23 +53,3 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
     return null;
   }
 }
-
-// export async function selectButtonHandler(
-//   e: MouseEvent,
-//   inputTextElem: HTMLInputElement,
-//   inputColorElem: HTMLInputElement
-// ) {
-//   const selectCar: null | DataObject = await controllerRaceSection.selectHandler(e, inputTextElem, inputColorElem);
-//   // if (selectCar) {
-//   //   const carElem: HTMLElement = <HTMLElement>document.getElementById(selectCar.id.toString());
-//   //   carElem.setAttribute('fill', selectCar.color.toString());
-//   // }
-// }
-
-// export async function removeButtonHandler(e: MouseEvent) {
-//   // const selectCar: null | DataObject = await controllerRaceSection.removeHandler(e);
-//   // if (selectCar) {
-//   //   const carElem: HTMLElement = <HTMLElement>document.getElementById(selectCar.id.toString());
-//   //   carElem.setAttribute('fill', selectCar.color.toString());
-//   // }
-// }

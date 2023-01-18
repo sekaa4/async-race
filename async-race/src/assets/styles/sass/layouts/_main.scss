@@ -70,3 +70,8 @@
   width: 10rem;
   top: -20px;
 }
+
+.car-active {
+  background: $color-hovered;
+  border-color: $color-hovered;
+}

@@ -1,8 +1,11 @@
 import CreateElementWrapper from '../CreateElementWrapper';
 import createElement from '../createElement';
 import ConstantsDom from '../../../models/Dom';
+import createListCars from './createListCars';
+import { createTitlePage } from './createTitlePage';
+import Data from '../../../interfaces/Data.type';
 
-export default function createRaceSection(): HTMLElement {
+export default function createRaceSection(count: number, page: number, data: Data): HTMLElement {
   const raceSection: HTMLElement = createElement(ConstantsDom.SECTION, HTMLElement, {
     classes: [ConstantsDom.SECTION, ConstantsDom.MAIN_SECTION],
   });
@@ -17,5 +20,9 @@ export default function createRaceSection(): HTMLElement {
     classes: [ConstantsDom.RACE, ConstantsDom.MAIN_RACE],
   });
 
-  return raceDiv;
+  const titlePageElem: HTMLDivElement = createTitlePage(count, page);
+  const raceCarsList: HTMLDivElement = createListCars(data, page);
+
+  raceDiv.append(titlePageElem, raceCarsList);
+  return raceSection;
 }
