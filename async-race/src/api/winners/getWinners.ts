@@ -1,5 +1,4 @@
 import Data from '../../interfaces/Data.type';
-import persistentStorage from '../../utils/persistentStorage';
 import Path from '../../models/Path';
 import generateQueryString from '../../utils/generateQueryString';
 import QueryObject from '../../interfaces/QueryObject';
@@ -13,8 +12,5 @@ export default async function getWinners(queryParams: QueryObject[] = []): Promi
   const data: Data = await resp.json();
   const returnObj: ReturnObj = { data, count };
 
-  // status 200 [arr Obj], headers x-count
-
-  persistentStorage.setItem('data-cars', data);
   return returnObj;
 }

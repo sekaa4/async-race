@@ -2,16 +2,19 @@ import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
 import DataObject from '../../../interfaces/DataObject';
 import controllerCarSection from '../../controller/ControllerCarSection';
+import globalState from '../../../utils/store';
 
 export const inputUpdateText: HTMLInputElement = createElement(ConstantsDom.INPUT, HTMLInputElement, {
   classes: [ConstantsDom.INPUT_TEXT, ConstantsDom.UPDATE_LINE_INPUT, ConstantsDom.INPUT],
   attributes: [['type', 'text']],
 });
+inputUpdateText.value = globalState.inputUpdate.name;
 
 export const inputUpdateColor: HTMLInputElement = createElement(ConstantsDom.INPUT, HTMLInputElement, {
   classes: [ConstantsDom.INPUT_COLOR],
   attributes: [['type', 'color']],
 });
+inputUpdateColor.value = globalState.inputUpdate.color;
 
 export function createUpdateLine(): HTMLDivElement {
   const carUpdateLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
@@ -39,6 +42,12 @@ export function createUpdateLine(): HTMLDivElement {
       carNameElem.dataset.name = selectCar.name;
       inputUpdateText.dataset.prevName = selectCar.name;
     }
+  });
+  inputUpdateText.addEventListener('input', () => {
+    globalState.inputUpdate.name = inputUpdateText.value;
+  });
+  inputUpdateColor.addEventListener('input', () => {
+    globalState.inputUpdate.color = inputUpdateColor.value;
   });
 
   carUpdateLineDiv.append(inputUpdateText, inputUpdateColor, updateButton);

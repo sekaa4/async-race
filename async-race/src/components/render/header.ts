@@ -1,5 +1,6 @@
 import createElement from '../elements/createElement';
 import ConstantsDom from '../../models/Dom';
+import globalState from '../../utils/store';
 
 export default function renderHeader(): HTMLElement {
   const header: HTMLElement = createElement(ConstantsDom.HEADER, HTMLElement, {
@@ -26,7 +27,20 @@ export default function renderHeader(): HTMLElement {
     text: 'TO WINNERS',
   });
 
-  headerButtonDiv.append(buttonGarage, buttonWinners);
+  if (globalState.view === 'garage') {
+    buttonGarage.disabled = true;
+  } else buttonWinners.disabled = true;
 
+  buttonGarage.addEventListener('click', () => {
+    buttonGarage.disabled = true;
+    buttonWinners.disabled = false;
+  });
+
+  buttonWinners.addEventListener('click', () => {
+    buttonWinners.disabled = true;
+    buttonGarage.disabled = false;
+  });
+
+  headerButtonDiv.append(buttonGarage, buttonWinners);
   return header;
 }

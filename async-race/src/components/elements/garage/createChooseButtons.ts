@@ -1,6 +1,7 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
 import DataObject from '../../../interfaces/DataObject';
+import globalState from '../../../utils/store';
 
 export default function createChooseButtons(car: DataObject): HTMLDivElement {
   const chooseButtons: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
@@ -11,6 +12,9 @@ export default function createChooseButtons(car: DataObject): HTMLDivElement {
     classes: [ConstantsDom.CHOOSE_BUTTON_SELECT, ConstantsDom.BUTTON],
     text: 'SELECT',
   });
+  if (globalState.idSelectedCar && car.id === globalState.idSelectedCar) {
+    buttonSelect.disabled = true;
+  }
 
   const buttonRemove: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
     classes: [ConstantsDom.CHOOSE_BUTTON_REMOVE, ConstantsDom.BUTTON],

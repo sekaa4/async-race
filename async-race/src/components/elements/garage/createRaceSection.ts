@@ -20,7 +20,7 @@ export default function createRaceSection(count: number, page: number, data: Dat
     classes: [ConstantsDom.RACE, ConstantsDom.MAIN_RACE],
   });
 
-  const titlePageElem: HTMLDivElement = createTitlePage(count, page);
+  const titlePageElem: HTMLDivElement = createTitlePage();
   const raceCarsList: HTMLDivElement = createListCars(data, page);
 
   raceDiv.append(titlePageElem, raceCarsList);

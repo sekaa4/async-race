@@ -7,6 +7,7 @@ import createCarOnRace from '../elements/garage/createCarOnRace';
 import { raceListDiv } from '../elements/garage/createListCars';
 import controllerCarSection from './ControllerCarSection';
 import changeTitlePage from '../../utils/changeTitlePage';
+import globalState from '../../utils/store';
 
 export default async function buttonLineHandler(e: MouseEvent, page: number) {
   const { target, currentTarget } = e;
@@ -20,6 +21,8 @@ export default async function buttonLineHandler(e: MouseEvent, page: number) {
           break;
         }
         case Constant.RACE: {
+          globalState.isRace = true;
+          target.disabled = true;
           break;
         }
         case Constant.RESET: {

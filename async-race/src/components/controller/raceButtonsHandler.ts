@@ -4,6 +4,7 @@ import { inputUpdateColor, inputUpdateText } from '../elements/garage/createUpda
 import controllerRaceSection from './ControllerRaceSection';
 import ReturnObj from '../../interfaces/ReturnObj';
 import changeTitlePage from '../../utils/changeTitlePage';
+import globalState from '../../utils/store';
 
 // eslint-disable-next-line import/no-cycle
 import createCarOnRace from '../elements/garage/createCarOnRace';
@@ -25,6 +26,8 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
             inputUpdateColor.value = carsOnPage.color;
             inputUpdateText.value = carsOnPage.name;
             inputUpdateText.dataset.prevName = carsOnPage.name;
+            globalState.inputUpdate.name = carsOnPage.name;
+            globalState.inputUpdate.color = carsOnPage.color;
           }
           break;
         }
