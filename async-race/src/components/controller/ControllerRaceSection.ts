@@ -41,7 +41,17 @@ class ControllerRaceSection implements ControllerRaceSection {
 
   // resetHandler() {}
 
-  // async generateHandler() {}
+  async startStopHandler(id: number, action: string, elem: HTMLElement): Promise<void> {
+    try {
+      await modelRaceSection.startStopButtonModel(id, action, elem);
+      // if (selectCar) {
+      //   return selectCar;
+      // }
+      // return null;
+    } catch (err) {
+      // return null;
+    }
+  }
 }
 
 const controllerRaceSection = new ControllerRaceSection();

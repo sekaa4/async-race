@@ -30,16 +30,9 @@
     "no-debugger": "off",
     "no-console": 1,
     "class-methods-use-this": "off",
-    // "import/no-cycle": [
-    //   [
-    //     2,
-    //     {
-    //       "maxDepth": 1
-    //     }
-    //   ]
-    // ],
     "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-var-requires": "warn"
+    "@typescript-eslint/no-var-requires": "warn",
+    "import/no-cycle": "off"
   },
   "root": true
 }

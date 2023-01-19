@@ -26,22 +26,40 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
             inputUpdateText.value = carsOnPage.name;
             inputUpdateText.dataset.prevName = carsOnPage.name;
           }
-
           break;
         }
         case Constant.REMOVE: {
           currentTarget.remove();
-          const carsOnPage: ReturnObj | null = await controllerRaceSection.removeHandler(car.id, page);
+          if (car && page) {
+            const carsOnPage: ReturnObj | null = await controllerRaceSection.removeHandler(car.id, page);
 
-          if (carsOnPage && (carsOnPage.count || carsOnPage.count === 0)) {
-            const { count, nextCar } = carsOnPage;
-            changeTitlePage(count);
+            if (carsOnPage && (carsOnPage.count || carsOnPage.count === 0)) {
+              const { count, nextCar } = carsOnPage;
+              changeTitlePage(count);
 
-            if (nextCar) {
-              const addCar = createCarOnRace(nextCar, page);
-              raceCarsList.append(addCar);
+              if (nextCar) {
+                const addCar = createCarOnRace(nextCar, page);
+                raceCarsList.append(addCar);
+              }
             }
           }
+
+          break;
+        }
+        case Constant.START: {
+          const svgCarElem: HTMLElement = <HTMLElement>document.getElementById(`${car.id}`);
+          await controllerRaceSection.startStopHandler(car.id, 'started', svgCarElem);
+
+          // if (carsOnPage && (carsOnPage.count || carsOnPage.count === 0)) {
+          //   const { count, nextCar } = carsOnPage;
+          //   changeTitlePage(count);
+
+          //   if (nextCar) {
+          //     const addCar = createCarOnRace(nextCar, page);
+          //     raceCarsList.append(addCar);
+          //   }
+          // }
+
           break;
         }
 

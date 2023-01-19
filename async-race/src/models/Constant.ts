@@ -13,6 +13,8 @@ enum Constant {
   UPDATE = 'UPDATE',
   SELECT = 'SELECT',
   REMOVE = 'REMOVE',
+  START = 'A',
+  STOP = 'B',
   RACE = 'RACE',
   RESET = 'RESET',
   GENERATE = 'GENERATE',
