@@ -1,8 +1,9 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
-import globalState from '../../../utils/store';
+import globalState from '../../../utils/globalState';
 // eslint-disable-next-line import/no-cycle
 import createButtonHandler from '../../controller/handlersCarSectionListeners';
+import Constant from '../../../models/Constant';
 
 export default function createCarLine(page: number): HTMLDivElement {
   const carLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
@@ -23,7 +24,7 @@ export default function createCarLine(page: number): HTMLDivElement {
 
   const createButton: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
     classes: [ConstantsDom.CREATE_LINE_BUTTON, ConstantsDom.BUTTON],
-    text: 'CREATE',
+    text: `${Constant.CREATE}`,
   });
 
   createButton.addEventListener('click', (e: MouseEvent) => {

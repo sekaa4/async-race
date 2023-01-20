@@ -1,6 +1,7 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
-import globalState from '../../../utils/store';
+import globalState from '../../../utils/globalState';
+import Constant from '../../../models/Constant';
 
 export const raceTitle: HTMLHeadElement = createElement(ConstantsDom.H2, HTMLHeadElement, {
   classes: [ConstantsDom.RACE_TITLE, ConstantsDom.TITLE_TEXT],
@@ -15,8 +16,8 @@ export function createTitlePage(): HTMLDivElement {
     classes: [ConstantsDom.RACE_TITLE_PAGE, ConstantsDom.TITLE_PAGE],
   });
 
-  raceTitle.innerText = `GARAGE(${globalState.carsCount})`;
-  racePage.innerText = `PAGE #${globalState.carsPage}`;
+  raceTitle.innerText = `${Constant.GARAGE}(${globalState.carsCount})`;
+  racePage.innerText = `${Constant.MAINPAGE} #${globalState.carsPage}`;
 
   raceTitlePage.append(raceTitle, racePage);
 

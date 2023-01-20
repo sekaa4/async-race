@@ -1,9 +1,9 @@
 import Constant from '../models/Constant';
 
 export default function randomColor(): string {
-  const letters: string[] = '0123456789ABCDEF'.split('');
+  const letters: string[] = `${Constant.COLOR_LETTERS}`.split('');
 
-  let color = '#';
+  let color = `${Constant.ANCHOR}`;
 
   for (let i = 0; i < Constant.SIX; i += Constant.ONE) {
     const randomLetter = letters[Math.floor(Math.random() * letters.length)];

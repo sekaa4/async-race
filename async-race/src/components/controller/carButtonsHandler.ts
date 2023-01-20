@@ -7,7 +7,7 @@ import createCarOnRace from '../elements/garage/createCarOnRace';
 import { raceListDiv } from '../elements/garage/createListCars';
 import controllerCarSection from './ControllerCarSection';
 import changeTitlePage from '../../utils/changeTitlePage';
-import globalState from '../../utils/store';
+import globalState from '../../utils/globalState';
 
 export default async function buttonLineHandler(e: MouseEvent, page: number) {
   const { target, currentTarget } = e;
@@ -21,16 +21,22 @@ export default async function buttonLineHandler(e: MouseEvent, page: number) {
           break;
         }
         case Constant.RACE: {
+          const buttonReset = <HTMLButtonElement>target.nextElementSibling;
           globalState.isRace = true;
           target.disabled = true;
+          buttonReset.disabled = false;
           break;
         }
         case Constant.RESET: {
+          const buttonRace = <HTMLButtonElement>target.previousElementSibling;
+          target.disabled = true;
+          globalState.isRace = false;
+          buttonRace.disabled = false;
           break;
         }
         case Constant.GENERATE: {
           target.disabled = true;
-          target.innerText = 'Wait...';
+          target.innerText = `${Constant.WAIT}`;
           const generateCars: RandomData | null = await controllerCarSection.generateHandler();
           if (generateCars) {
             const { randomCarsData, count } = generateCars;
@@ -43,9 +49,9 @@ export default async function buttonLineHandler(e: MouseEvent, page: number) {
               }
             });
 
-            target.innerText = 'GENERATE';
+            target.innerText = `${Constant.GENERATE}`;
           } else {
-            target.innerText = 'Try again';
+            target.innerText = `${Constant.TRY_AGAIN}`;
           }
           target.disabled = false;
           break;

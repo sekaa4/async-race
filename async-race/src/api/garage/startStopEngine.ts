@@ -13,19 +13,14 @@ const baseUrl = 'http://127.0.0.1:3000';
 export default async function startStopEngine(queryParams: QueryObject[] = []): Promise<Engine | null> {
   try {
     const resp: Response = await fetch(`${baseUrl}${Path.ENGINE}${generateQueryString(queryParams)}`, {
-      method: 'PATCH',
+      method: `${Constant.PATCH}`,
     });
-    console.dir(resp);
     if (resp.status === Constant.STATUSCODE200) {
       const engineObj: Engine = await resp.json();
       return engineObj;
     }
     return null;
   } catch (err) {
-    if (err instanceof Error) {
-      console.log(err.message);
-    }
-
     return null;
   }
 

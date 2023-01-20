@@ -6,6 +6,9 @@ import checkCar from '../utils/checkCar';
 import Constant from './Constant';
 import Engine from '../interfaces/Engine';
 import animate from '../utils/animation/animate';
+import globalState from '../utils/globalState';
+import StatusEngine from '../interfaces/StatusEngine.type';
+import StatusCar from '../interfaces/StatusCar';
 
 interface RaceSection {
   selectButtonModel(id: number): Promise<DataObject | null>;
@@ -28,8 +31,8 @@ class ModelRaceSection implements RaceSection {
       const nextCar: DataObject | null = await checkCar(id, page);
       const isRemove: boolean = await api.deleteCar(id);
       const carsObj: ReturnObj | null = await api.getCars([
-        { key: '_limit', value: `${Constant.SEVEN}` },
-        { key: '_page', value: `${page}` },
+        { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
+        { key: `${Constant.PAGE}`, value: `${page}` },
       ]);
       if (isRemove && carsObj) {
         const { data, count } = carsObj;
@@ -42,40 +45,118 @@ class ModelRaceSection implements RaceSection {
     }
   }
 
-  async startStopButtonModel(id: number, action: string, elem: HTMLElement): Promise<void> {
+  async startStopButtonModel(id: number, action: StatusEngine): Promise<Engine | null> {
     // let requestId: number;
     try {
       const engineParams: Engine | null = await api.startStopEngine([
-        { key: 'id', value: `${id}` },
-        { key: 'status', value: `${action}` },
+        { key: `${Constant.ID}`, value: `${id}` },
+        { key: `${Constant.STATUS}`, value: `${action}` },
       ]);
-      if (engineParams && action !== 'stop') {
-        this.switchEngineModel(id, engineParams, elem);
+      if (engineParams && action !== Constant.STOPPED) {
+        const durationTime: number = engineParams.distance / engineParams.velocity;
+        if (globalState.engineCarsStatus.has(id)) {
+          const curCar: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);
+          curCar.status = action;
+          curCar.duration = durationTime;
+        } else {
+          const { engineCarsStatus } = globalState;
+          engineCarsStatus.set(id, {
+            status: action,
+            duration: durationTime,
+            progress: 0,
+            requestId: 0,
+            controller: null,
+          });
+        }
+
+        return engineParams;
+        // this.switchEngineModel(id, engineParams, elem);
       }
+      if (engineParams && action === Constant.STOPPED) {
+        const durationTime: number = engineParams.velocity;
+        const curCar: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);
+        curCar.status = action;
+        curCar.duration = durationTime;
+        return engineParams;
+      }
+
+      // if (engineParams && action !== 'stop') {
+      //   this.switchEngineModel(id, engineParams, elem);
+      // }
+      return null;
     } catch (err) {
       // cancelAnimationFrame(requestId);
+      return null;
     }
   }
 
-  async switchEngineModel(id: number, engineParams: Engine, elem: HTMLElement) {
+  async switchEngineModel(id: number, action: StatusEngine) {
     try {
-      const svgElem = elem;
-      const { velocity, distance } = engineParams;
-      const duration = distance / velocity;
-      const requestId = await animate(duration, elem, id);
-      // const result = await api.switchCarEngine([
-      //   { key: 'id', value: `${id}` },
-      //   { key: 'status', value: `drive` },
-      // ]);
-      // console.log('id', requestId);
+      // const svgElem = elem;
+      // const { velocity, distance } = engineParams;
+      // const duration = distance / velocity;
+      const controller: AbortController = new AbortController();
+      const { signal } = controller;
+      const currentCar: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);
+      if (currentCar) {
+        currentCar.status = action;
+        currentCar.controller = controller;
+        // globalState.engineCarsStatus.set(id, { status: action, duration: durationTime });
+        const result = await api.switchCarEngine(signal, [
+          { key: `${Constant.ID}`, value: `${id}` },
+          { key: `${Constant.STATUS}`, value: action },
+        ]);
+
+        if (result) controller.abort();
+
+        return result;
+      }
+
+      // const requestId = await animate(duration, elem, id);
+
       // window.cancelAnimationFrame(requestId);
       // svgElem.style.animationPlayState = 'paused';
+      return null;
     } catch (err) {
-      console.log(err);
-
       // cancelAnimationFrame(requestId);
-      // return null;
+      return null;
     }
+  }
+
+  playAnimateModel(id: number, engineParams: Engine, elem: HTMLElement) {
+    const svgElem = elem;
+    const { velocity, distance } = engineParams;
+    const duration = distance / velocity;
+    animate(id, duration, svgElem);
+  }
+
+  stopAnimateModel(id: number) {
+    const carCur = globalState.engineCarsStatus.get(id);
+    if (carCur) {
+      const { requestId } = carCur;
+      window.cancelAnimationFrame(requestId);
+      return true;
+    }
+
+    return false;
+  }
+
+  resetPositionModel(id: number, elem: HTMLElement) {
+    const svgCarElem: HTMLElement = elem;
+    svgCarElem.style.left = '';
+    const carCur: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);
+    const { requestId, controller } = carCur;
+    if (requestId && controller) {
+      window.cancelAnimationFrame(requestId);
+      controller.abort();
+      carCur.progress = 0;
+      carCur.requestId = 0;
+      carCur.controller = null;
+
+      return true;
+    }
+
+    return false;
   }
 }
 

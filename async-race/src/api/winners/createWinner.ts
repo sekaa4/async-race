@@ -20,7 +20,6 @@ export default async function createWinner(body: DataObject): Promise<DataObject
   // status 500 Error: Insert failed, duplicate id
 
   const car: DataObject = await resp.json();
-  // console.log('🚀 ~ file: createCar.ts:19 ~ createCar ~ car', car);
 
   // persistentStorage.setItem('data-cars', data);
   return car;

@@ -1,6 +1,8 @@
 import modelRaceSection from '../../models/modelRaceSection';
 import ReturnObj from '../../interfaces/ReturnObj';
 import DataObject from '../../interfaces/DataObject';
+import StatusEngine from '../../interfaces/StatusEngine.type';
+import Engine from '../../interfaces/Engine';
 // import ControllerCarSection from './ControllerCarSection';
 
 interface ControllerRaceSection {
@@ -41,18 +43,53 @@ class ControllerRaceSection implements ControllerRaceSection {
 
   // resetHandler() {}
 
-  async startStopHandler(id: number, action: string, elem: HTMLElement): Promise<void> {
+  async startStopHandler(id: number, action: StatusEngine): Promise<Engine | null> {
     try {
-      await modelRaceSection.startStopButtonModel(id, action, elem);
-      // if (selectCar) {
-      //   return selectCar;
-      // }
-      // return null;
+      const statusObj: Engine | null = await modelRaceSection.startStopButtonModel(id, action);
+
+      if (statusObj) {
+        return statusObj;
+      }
+      return null;
     } catch (err) {
-      // return null;
+      return null;
+    }
+  }
+
+  async switchEngineHandler(
+    id: number,
+    action: StatusEngine,
+    engineParams: Engine,
+    elem: HTMLElement
+  ): Promise<boolean | null> {
+    try {
+      modelRaceSection.playAnimateModel(id, engineParams, elem);
+      const result: boolean | null = await modelRaceSection.switchEngineModel(id, action);
+      if (result) {
+        return result;
+      }
+      modelRaceSection.stopAnimateModel(id);
+
+      return null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async stopAnimationHandler(id: number, elem: HTMLElement): Promise<boolean | null> {
+    try {
+      const result: boolean = modelRaceSection.stopAnimateModel(id);
+      if (result) {
+        const resetPosition: boolean = modelRaceSection.resetPositionModel(id, elem);
+        return resetPosition || false;
+      }
+
+      return result;
+    } catch (err) {
+      return null;
     }
   }
 }
 
-const controllerRaceSection = new ControllerRaceSection();
+const controllerRaceSection: ControllerRaceSection = new ControllerRaceSection();
 export default controllerRaceSection;

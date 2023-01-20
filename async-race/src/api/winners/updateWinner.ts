@@ -20,8 +20,6 @@ export default async function updateWinner(id: number, body: DataObject): Promis
   // status 404; ====> {}
   const car: DataObject = await resp.json();
 
-  // console.log('🚀 ~ file: createCar.ts:19 ~ createCar ~ car', car);
-
   // persistentStorage.setItem('data-cars', data);
   return car;
 }

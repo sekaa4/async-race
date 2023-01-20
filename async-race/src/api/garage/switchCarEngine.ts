@@ -5,14 +5,15 @@ import generateQueryString from '../../utils/generateQueryString';
 // import ReturnObj from '../interfaces/ReturnObj';
 // import DataObject from '../../interfaces/DataObject';
 import QueryObject from '../../interfaces/QueryObject';
+import Constant from '../../models/Constant';
 
 const baseUrl = 'http://127.0.0.1:3000';
 
-export default async function switchCarEngine(queryParams: QueryObject[] = []) {
+export default async function switchCarEngine(signal: AbortSignal, queryParams: QueryObject[] = []) {
   const resp = await fetch(`${baseUrl}${Path.ENGINE}${generateQueryString(queryParams)}`, {
-    method: 'PATCH',
+    method: `${Constant.PATCH}`,
+    signal,
   });
-  console.log(resp);
   if (resp.status === 200) {
     return true;
   }
@@ -39,7 +40,6 @@ export default async function switchCarEngine(queryParams: QueryObject[] = []) {
   // Car has been stopped suddenly. It's engine was broken down.
   // }
   // const car: DataObject = await resp.json();
-  // console.log('🚀 ~ file: createCar.ts:19 ~ createCar ~ car', car);
 
   // persistentStorage.setItem('data-cars', data);
   // return car;

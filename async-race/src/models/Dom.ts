@@ -71,6 +71,8 @@ enum ConstantsDom {
   CONTROL_CAR = 'control-car',
   CONTROL_CAR_IMG = 'control-car__img',
   BUTTON_ENGINE = 'button-engine',
+  BUTTON_ENGINE_A = 'button-engine__A',
+  BUTTON_ENGINE_B = 'button-engine__B',
   CAR_IMAGE = 'car-image',
   FINISH_IMAGE = 'finish-image',
   FOOTER = 'footer',

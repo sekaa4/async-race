@@ -3,6 +3,7 @@
 // import ReturnObj from '../interfaces/ReturnObj';
 // import Constant from '../models/Constant';
 import GlobalState from '../interfaces/GlobalState';
+import Constant from '../models/Constant';
 
 const globalState: GlobalState = {
   carsPage: 1,
@@ -16,12 +17,11 @@ const globalState: GlobalState = {
   inputCreate: { name: '', color: '' },
   buttonsStartA: [],
   buttonsStartB: [],
-  buttonSelected: [],
   carsOnTrack: [],
   engineCarsStatus: new Map(),
   isRace: false,
   isAllCarsReady: false,
-  view: 'garage',
+  view: `${Constant.GARAGE}`,
   sortBy: null,
   sortOrder: null,
   animation: [],
@@ -35,6 +35,3 @@ export default globalState;
 //     const { count, data } = dataCars;
 //   }
 // } catch (err) {
-//   // eslint-disable-next-line no-console
-//   console.log('Cannot get data, mb server shot down');
-// }

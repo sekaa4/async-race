@@ -1,7 +1,8 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
 import buttonLineHandler from '../../controller/carButtonsHandler';
-import globalState from '../../../utils/store';
+import globalState from '../../../utils/globalState';
+import Constant from '../../../models/Constant';
 
 export default function createButtonLine(page: number): HTMLDivElement {
   const carButtonLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
@@ -10,21 +11,23 @@ export default function createButtonLine(page: number): HTMLDivElement {
 
   const buttonRace: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
     classes: [ConstantsDom.BUTTON_LINE_RACE, ConstantsDom.BUTTON],
-    text: 'RACE',
+    text: `${Constant.RACE}`,
   });
-  if (globalState.isRace) {
-    buttonRace.disabled = true;
-  } else buttonRace.disabled = false;
 
   const buttonReset: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
     classes: [ConstantsDom.BUTTON_LINE_RESET, ConstantsDom.BUTTON],
-    text: 'RESET',
+    text: `${Constant.RESET}`,
   });
 
   const buttonGenerate: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
     classes: [ConstantsDom.BUTTON_LINE_GENERATE, ConstantsDom.BUTTON],
-    text: 'GENERATE',
+    text: `${Constant.GENERATE}`,
   });
+
+  if (globalState.isRace) {
+    buttonRace.disabled = true;
+    buttonReset.disabled = false;
+  } else buttonReset.disabled = true;
 
   carButtonLineDiv.append(buttonRace, buttonReset, buttonGenerate);
   carButtonLineDiv.addEventListener('click', (e: MouseEvent) => buttonLineHandler(e, page));

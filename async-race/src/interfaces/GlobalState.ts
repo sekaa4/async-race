@@ -1,5 +1,7 @@
 // import Constant from '../models/Constant';
+import Constant from '../models/Constant';
 import Data from './Data.type';
+import StatusCar from './StatusCar';
 
 interface GlobalState {
   carsPage: number;
@@ -11,16 +13,15 @@ interface GlobalState {
   idSelectedCar: null | number;
   inputUpdate: { name: string; color: string };
   inputCreate: { name: string; color: string };
-  buttonsStartA: [];
-  buttonsStartB: [];
-  buttonSelected: [];
-  carsOnTrack: [];
-  engineCarsStatus: Map<number, string>;
+  buttonsStartA: { id: number; status: boolean }[];
+  buttonsStartB: { id: number; status: boolean }[];
+  carsOnTrack: { id: number; positionLeft: string }[];
+  engineCarsStatus: Map<number, StatusCar>;
   isRace: boolean;
   isAllCarsReady: boolean;
-  view: 'garage' | 'winners';
-  sortBy: null | 'sortByWins';
-  sortOrder: null | 'sortByOrder';
+  view: `${Constant.GARAGE}` | `${Constant.WINNERS}`;
+  sortBy: null | `${Constant.SORT_BY_WINS}`;
+  sortOrder: null | `${Constant.SORT_BY_ORDER}`;
   animation: [];
 }
 

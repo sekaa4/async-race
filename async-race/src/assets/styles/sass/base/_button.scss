@@ -22,6 +22,7 @@
   &:disabled {
     background: $color-hovered;
     border-color: $color-hovered;
+    cursor: default;
   }
 }
 
