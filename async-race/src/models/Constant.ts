@@ -32,6 +32,8 @@ enum Constant {
   POST = 'POST',
   GARAGE = 'GARAGE',
   WINNERS = 'WINNERS',
+  PREVIOUS = 'PREVIOUS',
+  NEXT = 'NEXT',
   VIEW_GARAGE = 'garage',
   VIEW_WINNERS = 'winners',
   ORANGE_COLOR = 'orange',

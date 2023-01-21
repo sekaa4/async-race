@@ -75,3 +75,14 @@
   background: $color-hovered;
   border-color: $color-hovered;
 }
+
+.pagination {
+  display: flex;
+  padding: 5rem 0 3rem 0;
+  justify-content: center;
+  column-gap: 2rem;
+
+  &-text {
+    align-self: center;
+  }
+}
