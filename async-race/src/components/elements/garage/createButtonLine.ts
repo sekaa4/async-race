@@ -1,10 +1,10 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
-import buttonLineHandler from '../../controller/carButtonsHandler';
+// import buttonLineHandler from '../../controller/carButtonsHandler';
 import globalState from '../../../utils/globalState';
 import Constant from '../../../models/Constant';
 
-export default function createButtonLine(page: number): HTMLDivElement {
+export default function createButtonLine(): HTMLDivElement {
   const carButtonLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CAR_BUTTON_LINE, ConstantsDom.BUTTON_LINE],
   });
@@ -30,7 +30,6 @@ export default function createButtonLine(page: number): HTMLDivElement {
   } else buttonReset.disabled = true;
 
   carButtonLineDiv.append(buttonRace, buttonReset, buttonGenerate);
-  carButtonLineDiv.addEventListener('click', (e: MouseEvent) => buttonLineHandler(e, page));
 
   return carButtonLineDiv;
 }

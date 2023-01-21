@@ -1,7 +1,5 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
-import DataObject from '../../../interfaces/DataObject';
-import controllerCarSection from '../../controller/ControllerCarSection';
 import globalState from '../../../utils/globalState';
 import Constant from '../../../models/Constant';
 
@@ -20,39 +18,11 @@ export const updateButton: HTMLButtonElement = createElement(ConstantsDom.BUTTON
   text: `${Constant.UPDATE}`,
 });
 
-export function createUpdateLine(): HTMLDivElement {
+export function createUpdateLine() {
   const carUpdateLineDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.CAR_UPDATE_LINE, ConstantsDom.UPDATE_LINE],
   });
 
-  if (globalState.idSelectedCar) {
-    inputUpdateText.disabled = false;
-    inputUpdateColor.disabled = false;
-    inputUpdateText.value = globalState.inputUpdate.name;
-    inputUpdateColor.value = globalState.inputUpdate.color;
-  } else {
-    inputUpdateText.disabled = true;
-    inputUpdateColor.disabled = true;
-    updateButton.disabled = true;
-  }
-
-  updateButton.addEventListener('click', async (e: MouseEvent) => {
-    const oldName = inputUpdateText.dataset.prevName;
-    const selectCar: null | DataObject = await controllerCarSection.updateHandler(
-      e,
-      inputUpdateText,
-      inputUpdateColor,
-      oldName
-    );
-    if (selectCar) {
-      const carColorElem: HTMLElement = <HTMLElement>document.getElementById(selectCar.id.toString());
-      const carNameElem: HTMLElement = <HTMLElement>document.querySelector(`[data-name='${oldName}']`);
-      carColorElem.setAttribute('fill', selectCar.color.toString());
-      carNameElem.innerText = selectCar.name;
-      carNameElem.dataset.name = selectCar.name;
-      inputUpdateText.dataset.prevName = selectCar.name;
-    }
-  });
   inputUpdateText.addEventListener('input', () => {
     globalState.inputUpdate.name = inputUpdateText.value;
   });
@@ -62,5 +32,5 @@ export function createUpdateLine(): HTMLDivElement {
 
   carUpdateLineDiv.append(inputUpdateText, inputUpdateColor, updateButton);
 
-  return carUpdateLineDiv;
+  return { carUpdateLineDiv, inputUpdateText, inputUpdateColor };
 }
