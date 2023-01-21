@@ -46,6 +46,7 @@ enum Constant {
   ANCHOR = '#',
   WAIT = 'Wait...',
   TRY_AGAIN = 'Try again',
+  CAR_SVG = 'car-svg',
 }
 
 export default Constant;

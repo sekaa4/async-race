@@ -107,8 +107,6 @@ class ModelRaceSection implements RaceSection {
           { key: `${Constant.STATUS}`, value: action },
         ]);
 
-        if (result) controller.abort();
-
         return result;
       }
 
@@ -132,9 +130,11 @@ class ModelRaceSection implements RaceSection {
 
   stopAnimateModel(id: number) {
     const carCur = globalState.engineCarsStatus.get(id);
-    if (carCur) {
-      const { requestId } = carCur;
+    if (carCur && carCur.controller) {
+      const { requestId, controller } = carCur;
       window.cancelAnimationFrame(requestId);
+      controller.abort();
+
       return true;
     }
 

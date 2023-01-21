@@ -56,24 +56,14 @@ class ControllerRaceSection implements ControllerRaceSection {
     }
   }
 
-  async switchEngineHandler(
-    id: number,
-    action: StatusEngine,
-    engineParams: Engine,
-    elem: HTMLElement
-  ): Promise<boolean | null> {
-    try {
-      modelRaceSection.playAnimateModel(id, engineParams, elem);
-      const result: boolean | null = await modelRaceSection.switchEngineModel(id, action);
-      if (result) {
-        return result;
-      }
-      modelRaceSection.stopAnimateModel(id);
-
-      return null;
-    } catch (err) {
-      return null;
+  async switchEngineHandler(id: number, action: StatusEngine, engineParams: Engine, elem: HTMLElement) {
+    modelRaceSection.playAnimateModel(id, engineParams, elem);
+    const result: boolean | null = await modelRaceSection.switchEngineModel(id, action);
+    if (result) {
+      return engineParams;
     }
+    modelRaceSection.stopAnimateModel(id);
+    throw new Error();
   }
 
   async stopAnimationHandler(id: number, elem: HTMLElement): Promise<boolean | null> {

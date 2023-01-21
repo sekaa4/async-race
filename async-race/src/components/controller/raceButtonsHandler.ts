@@ -9,6 +9,7 @@ import globalState from '../../utils/globalState';
 // eslint-disable-next-line import/no-cycle
 import createCarOnRace from '../elements/garage/createCarOnRace';
 import ConstantsDom from '../../models/Dom';
+import Engine from '../../interfaces/Engine';
 
 export default async function chooseButtonsHandler(e: MouseEvent, car: DataObject, page: number) {
   const { target, currentTarget } = e;
@@ -70,7 +71,7 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
           const buttonStop: HTMLButtonElement = <HTMLButtonElement>target.nextElementSibling;
           target.disabled = true;
           target.style.backgroundColor = Constant.ORANGE_COLOR;
-          const statusObj = await controllerRaceSection.startStopHandler(car.id, Constant.STARTED);
+          const statusObj: Engine | null = await controllerRaceSection.startStopHandler(car.id, Constant.STARTED);
           if (statusObj) {
             target.style.backgroundColor = '';
             buttonStop.disabled = false;

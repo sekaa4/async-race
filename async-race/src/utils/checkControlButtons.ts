@@ -5,6 +5,11 @@ import ConstantsDom from '../models/Dom';
 export default function checkControlButtons(controlCar: HTMLDivElement, id: number) {
   const buttonA: HTMLButtonElement = <HTMLButtonElement>controlCar.querySelector(`.${ConstantsDom.BUTTON_ENGINE_A}`);
   const buttonB: HTMLButtonElement = <HTMLButtonElement>controlCar.querySelector(`.${ConstantsDom.BUTTON_ENGINE_B}`);
+  if (globalState.isRace) {
+    buttonA.disabled = true;
+    buttonB.disabled = false;
+  }
+
   if (globalState.buttonsStartA.length !== Constant.ZERO) {
     const arrButtonsA = globalState.buttonsStartA;
     arrButtonsA.forEach((button) => {
