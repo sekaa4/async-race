@@ -3,6 +3,9 @@ import ReturnObj from '../../interfaces/ReturnObj';
 import DataObject from '../../interfaces/DataObject';
 import StatusEngine from '../../interfaces/StatusEngine.type';
 import Engine from '../../interfaces/Engine';
+import Constant from '../../models/Constant';
+import globalState from '../../utils/globalState';
+import Data from '../../interfaces/Data.type';
 // import ControllerCarSection from './ControllerCarSection';
 
 interface ControllerRaceSection {
@@ -75,6 +78,38 @@ class ControllerRaceSection implements ControllerRaceSection {
       }
 
       return result;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async changePageHandler(option: string): Promise<Data | null> {
+    try {
+      const mode = globalState.view;
+
+      if (mode === Constant.GARAGE) {
+        const curPageCars: number = globalState.carsPage;
+        if (option === Constant.NEXT) {
+          const nextPageCars = curPageCars + Constant.ONE;
+          return await modelRaceSection.changePageModel(nextPageCars);
+        }
+        if (option === Constant.PREVIOUS) {
+          const prevPageCars = curPageCars - Constant.ONE;
+          return await modelRaceSection.changePageModel(prevPageCars);
+        }
+      }
+      if (mode === Constant.WINNERS) {
+        const pageWinners: number = globalState.winnersPage;
+        if (option === Constant.NEXT) {
+          const nextPageWinners = pageWinners + Constant.ONE;
+          return await modelRaceSection.changePageModel(nextPageWinners);
+        }
+        if (option === Constant.PREVIOUS) {
+          const prevPageWinners = pageWinners - Constant.ONE;
+          return await modelRaceSection.changePageModel(prevPageWinners);
+        }
+      }
+      return null;
     } catch (err) {
       return null;
     }

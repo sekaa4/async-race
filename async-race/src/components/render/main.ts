@@ -5,7 +5,8 @@ import createRaceSection from '../elements/garage/createRaceSection';
 import Data from '../../interfaces/Data.type';
 import globalState from '../../utils/globalState';
 import Constant from '../../models/Constant';
-import createPageButtons from '../elements/createPageButtons';
+import { createPageButtons } from '../elements/createPageButtons';
+import checkPageButtons from '../../utils/checkPageButtons';
 
 export const main: HTMLElement = createElement(ConstantsDom.MAIN, HTMLElement, {
   classes: [ConstantsDom.MAIN],
@@ -18,8 +19,9 @@ export function renderMain(count: number, data: Data, page: number): HTMLElement
       classes: [ConstantsDom.SECTION, ConstantsDom.MAIN_SECTION],
     });
     const carSection: HTMLElement = createCarSection(page);
-    const wrapperSectionDiv: HTMLElement = createRaceSection(count, page, data);
+    const wrapperSectionDiv: HTMLElement = createRaceSection(data);
     const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page);
+    checkPageButtons(wrapperPageButtons);
     raceSection.append(wrapperSectionDiv, wrapperPageButtons);
     main.append(carSection, raceSection);
   }

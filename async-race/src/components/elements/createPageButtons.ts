@@ -1,9 +1,14 @@
 import Constant from '../../models/Constant';
 import ConstantsDom from '../../models/Dom';
+import pageButtonsHandler from '../controller/pageButtonsHandler';
 import createElement from './createElement';
 import CreateElementWrapper from './CreateElementWrapper';
 
-export default function createPageButtons(count: number, page: number): HTMLDivElement {
+export const countText: HTMLHeadElement = createElement(ConstantsDom.H3, HTMLHeadElement, {
+  classes: [ConstantsDom.TITLE_TEXT, ConstantsDom.PAGINATION_TEXT],
+});
+
+export function createPageButtons(count: number, page: number): HTMLDivElement {
   const wrapperCreateCar: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
     classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
   });
@@ -18,14 +23,15 @@ export default function createPageButtons(count: number, page: number): HTMLDivE
     text: `${Constant.PREVIOUS}`,
   });
 
-  const countText: HTMLHeadElement = createElement(ConstantsDom.H3, HTMLHeadElement, {
-    classes: [ConstantsDom.TITLE_TEXT, ConstantsDom.PAGINATION_TEXT],
-    text: `${page}/${Math.ceil(count / Constant.SEVEN)}`,
-  });
-
   const nextButton: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {
     classes: [ConstantsDom.BUTTON_NEXT, ConstantsDom.BUTTON_PAGE, ConstantsDom.BUTTON],
     text: `${Constant.NEXT}`,
+  });
+
+  countText.innerText = `${page}/${Math.ceil(count / Constant.SEVEN)}`;
+
+  createPaginationDiv.addEventListener('click', (e: MouseEvent) => {
+    pageButtonsHandler(e, countText);
   });
 
   createPaginationDiv.append(prevButton, countText, nextButton);

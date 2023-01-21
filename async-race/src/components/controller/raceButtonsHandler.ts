@@ -11,8 +11,9 @@ import createCarOnRace from '../elements/garage/createCarOnRace';
 import ConstantsDom from '../../models/Dom';
 import Engine from '../../interfaces/Engine';
 
-export default async function chooseButtonsHandler(e: MouseEvent, car: DataObject, page: number) {
+export default async function chooseButtonsHandler(e: MouseEvent, car: DataObject) {
   const { target, currentTarget } = e;
+  const page: number = globalState.carsPage;
   try {
     if (target instanceof HTMLButtonElement && currentTarget instanceof HTMLElement) {
       const raceCarsList = <HTMLDivElement>currentTarget.parentElement;
@@ -58,7 +59,7 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
               changeTitlePage(count);
 
               if (nextCar) {
-                const addCar = createCarOnRace(nextCar, page);
+                const addCar = createCarOnRace(nextCar);
                 raceCarsList.append(addCar);
               }
             }

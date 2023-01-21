@@ -8,11 +8,11 @@ export const raceListDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLD
   classes: [ConstantsDom.RACE_LIST],
 });
 
-export default function createListCars(data: Data, page: number): HTMLDivElement {
-  // raceListDiv.innerText = '';
+export default function createListCars(data: Data): HTMLDivElement {
+  raceListDiv.innerText = '';
 
   data.forEach((car: DataObject) => {
-    const carOnTrack: HTMLDivElement = createCarOnRace(car, page);
+    const carOnTrack: HTMLDivElement = createCarOnRace(car);
     raceListDiv.append(carOnTrack);
   });
 

@@ -121,6 +121,43 @@ class ModelRaceSection implements RaceSection {
     }
   }
 
+  async changePageModel(page: number) {
+    try {
+      const mode = globalState.view;
+
+      if (mode === Constant.GARAGE) {
+        const dataObj = await api.getCars([
+          { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
+          { key: `${Constant.PAGE}`, value: `${page}` },
+        ]);
+        const { count, data } = dataObj;
+        if (count && data) {
+          globalState.carsPage = page;
+          globalState.carsData = data;
+        }
+        return data;
+      }
+
+      if (mode === Constant.WINNERS) {
+        const dataObj = await api.getWinners([
+          { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
+          { key: `${Constant.PAGE}`, value: `${page}` },
+        ]);
+
+        const { count, data } = dataObj;
+        if (count && data) {
+          globalState.carsWinners = data;
+          globalState.winnersPage = page;
+        }
+        return data;
+      }
+
+      return null;
+    } catch (error) {
+      return null;
+    }
+  }
+
   playAnimateModel(id: number, engineParams: Engine, elem: HTMLElement) {
     const svgElem = elem;
     const { velocity, distance } = engineParams;

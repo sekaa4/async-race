@@ -12,7 +12,7 @@ import changeTitlePage from '../../utils/changeTitlePage';
 import globalState from '../../utils/globalState';
 import ConstantsDom from '../../models/Dom';
 
-export default async function buttonLineHandler(e: MouseEvent, inputObj: InputObject, page: number) {
+export default async function handlersCarSectionListeners(e: MouseEvent, inputObj: InputObject, page: number) {
   const { target, currentTarget } = e;
   const { inputText, inputColor, inputUpdateText, inputUpdateColor } = inputObj;
 
@@ -34,7 +34,7 @@ export default async function buttonLineHandler(e: MouseEvent, inputObj: InputOb
             changeTitlePage(count);
 
             if (length < Constant.SEVEN && newCar) {
-              const carOnRace: HTMLDivElement = createCarOnRace(newCar, page);
+              const carOnRace: HTMLDivElement = createCarOnRace(newCar);
               raceListDiv.append(carOnRace);
             }
           }
@@ -139,11 +139,11 @@ export default async function buttonLineHandler(e: MouseEvent, inputObj: InputOb
           const generateCars: RandomData | null = await controllerCarSection.generateHandler();
           if (generateCars) {
             const { randomCarsData, count } = generateCars;
-            changeTitlePage(count);
+            changeTitlePage(count, page);
             randomCarsData.forEach((car: DataObject) => {
               const length = raceListDiv.childElementCount;
               if (length < Constant.SEVEN) {
-                const carOnTrack: HTMLDivElement = createCarOnRace(car, page);
+                const carOnTrack: HTMLDivElement = createCarOnRace(car);
                 raceListDiv.append(carOnTrack);
               }
             });

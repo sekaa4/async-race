@@ -5,7 +5,7 @@ import createListCars from './createListCars';
 import { createTitlePage } from './createTitlePage';
 import Data from '../../../interfaces/Data.type';
 
-export default function createRaceSection(count: number, page: number, data: Data): HTMLElement {
+export default function createRaceSection(data: Data): HTMLElement {
   const wrapperRaceCar: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
     classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
   });
@@ -16,7 +16,7 @@ export default function createRaceSection(count: number, page: number, data: Dat
   });
 
   const titlePageElem: HTMLDivElement = createTitlePage();
-  const raceCarsList: HTMLDivElement = createListCars(data, page);
+  const raceCarsList: HTMLDivElement = createListCars(data);
 
   raceDiv.append(titlePageElem, raceCarsList);
   return wrapperRaceCar.elem;
