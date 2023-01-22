@@ -8,11 +8,11 @@ export const countText: HTMLHeadElement = createElement(ConstantsDom.H3, HTMLHea
   classes: [ConstantsDom.TITLE_TEXT, ConstantsDom.PAGINATION_TEXT],
 });
 
-export function createPageButtons(count: number, page: number): HTMLDivElement {
-  const wrapperCreateCar: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
-    classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
-  });
+export const wrapperCreateCar: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
+  classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
+});
 
+export function createPageButtons(count: number, page: number): HTMLDivElement {
   const createPaginationDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     parentElement: wrapperCreateCar.elem,
     classes: [ConstantsDom.MAIN_PAGE, ConstantsDom.PAGINATION],

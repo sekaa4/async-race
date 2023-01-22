@@ -1,9 +1,11 @@
 enum Constant {
   ZERO = 0,
   ONE = 1,
+  TWO = 2,
   SIX = 6,
   SEVEN = 7,
   ONEHUNDRED = 100,
+  ONETHOUSAND = 1000,
   STATUSCODE200 = 200,
   STATUSCODE201 = 201,
   ERRORCODE400 = 400,

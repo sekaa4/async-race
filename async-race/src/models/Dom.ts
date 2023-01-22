@@ -101,5 +101,7 @@ enum ConstantsDom {
   TEST = 'test',
   ACTIVE = 'active',
   GITHUB_SERGEY = 'https://github.com/sekaa4',
+  MODAL = 'modal',
+  WIN_MODAL = 'win-modal',
 }
 export default ConstantsDom;

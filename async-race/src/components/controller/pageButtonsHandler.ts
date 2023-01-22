@@ -37,7 +37,6 @@ export default async function pageButtonsHandler(event: MouseEvent, countTextFie
           if (dataCars) {
             const newWrapperSectionDiv: HTMLElement = createRaceSection(dataCars);
             const curPage = globalState.carsPage;
-            // console.log(curPage);
             if (curPage > Constant.ONE) prevButton.disabled = false;
             if (curPage === pageCount) target.disabled = true;
             wrapperCarSection.remove();

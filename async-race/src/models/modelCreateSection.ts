@@ -6,6 +6,7 @@ import RandomData from '../interfaces/RandomData';
 import UpdateData from '../interfaces/UpdateData';
 import Constant from './Constant';
 import randomDataCars from '../utils/randomDataCars';
+import globalState from '../utils/globalState';
 
 interface CreateSection {
   createCarModel(name: string, color: string): Promise<ReturnObj | null>;
@@ -73,11 +74,11 @@ class ModelCreateSection implements CreateSection {
 
       if (dataCars && (dataCars.count || dataCars.count === 0)) {
         const { count } = dataCars;
+        globalState.carsCount = count;
         return { randomCarsData, count };
       }
 
       return null;
-      // return randomCarsArray.includes(null) ? await this.generateCarModel() : (randomCarsArray as DataObject[]);
     } catch (err) {
       return null;
     }

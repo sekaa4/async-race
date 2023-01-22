@@ -1,7 +1,6 @@
 import * as api from '../api/api';
 import DataObject from '../interfaces/DataObject';
 import ReturnObj from '../interfaces/ReturnObj';
-// import UpdateData from '../interfaces/UpdateData';
 import checkCar from '../utils/checkCar';
 import Constant from './Constant';
 import Engine from '../interfaces/Engine';
@@ -9,12 +8,12 @@ import animate from '../utils/animation/animate';
 import globalState from '../utils/globalState';
 import StatusEngine from '../interfaces/StatusEngine.type';
 import StatusCar from '../interfaces/StatusCar';
-
-interface RaceSection {
-  selectButtonModel(id: number): Promise<DataObject | null>;
-  removeButtonModel(id: number, page: number): Promise<ReturnObj | null>;
-  // updateCar(name: string, color: string);
-}
+import CarEngine from '../interfaces/CarEngine.type';
+import DataWinObject from '../interfaces/DataWinObject';
+import UpdateWinObj from '../interfaces/UpdateWinObj.type.';
+import Data from '../interfaces/Data.type';
+import RaceSection from '../interfaces/RaceSection';
+import View from '../interfaces/View.type';
 
 class ModelRaceSection implements RaceSection {
   async selectButtonModel(id: number): Promise<DataObject | null> {
@@ -34,6 +33,9 @@ class ModelRaceSection implements RaceSection {
         { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
         { key: `${Constant.PAGE}`, value: `${page}` },
       ]);
+      const winnerExists: DataWinObject | null = await api.getWinner(id);
+      if (winnerExists) await api.deleteWinner(id);
+
       if (isRemove && carsObj) {
         const { data, count } = carsObj;
         return { data, count, nextCar };
@@ -46,21 +48,24 @@ class ModelRaceSection implements RaceSection {
   }
 
   async startStopButtonModel(id: number, action: StatusEngine): Promise<Engine | null> {
-    // let requestId: number;
     try {
       const engineParams: Engine | null = await api.startStopEngine([
         { key: `${Constant.ID}`, value: `${id}` },
         { key: `${Constant.STATUS}`, value: `${action}` },
       ]);
+      const curCarName: DataObject = await api.getCar(id);
       if (engineParams && action !== Constant.STOPPED) {
         const durationTime: number = engineParams.distance / engineParams.velocity;
         if (globalState.engineCarsStatus.has(id)) {
           const curCar: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);
+          curCar.name = curCarName.name;
           curCar.status = action;
           curCar.duration = durationTime;
         } else {
           const { engineCarsStatus } = globalState;
+
           engineCarsStatus.set(id, {
+            name: curCarName.name,
             status: action,
             duration: durationTime,
             progress: 0,
@@ -70,7 +75,6 @@ class ModelRaceSection implements RaceSection {
         }
 
         return engineParams;
-        // this.switchEngineModel(id, engineParams, elem);
       }
       if (engineParams && action === Constant.STOPPED) {
         const durationTime: number = engineParams.velocity;
@@ -79,29 +83,20 @@ class ModelRaceSection implements RaceSection {
         curCar.duration = durationTime;
         return engineParams;
       }
-
-      // if (engineParams && action !== 'stop') {
-      //   this.switchEngineModel(id, engineParams, elem);
-      // }
       return null;
     } catch (err) {
-      // cancelAnimationFrame(requestId);
       return null;
     }
   }
 
-  async switchEngineModel(id: number, action: StatusEngine) {
+  async switchEngineModel(id: number, action: StatusEngine): Promise<boolean | null> {
     try {
-      // const svgElem = elem;
-      // const { velocity, distance } = engineParams;
-      // const duration = distance / velocity;
       const controller: AbortController = new AbortController();
       const { signal } = controller;
       const currentCar: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);
       if (currentCar) {
         currentCar.status = action;
         currentCar.controller = controller;
-        // globalState.engineCarsStatus.set(id, { status: action, duration: durationTime });
         const result = await api.switchCarEngine(signal, [
           { key: `${Constant.ID}`, value: `${id}` },
           { key: `${Constant.STATUS}`, value: action },
@@ -109,24 +104,18 @@ class ModelRaceSection implements RaceSection {
 
         return result;
       }
-
-      // const requestId = await animate(duration, elem, id);
-
-      // window.cancelAnimationFrame(requestId);
-      // svgElem.style.animationPlayState = 'paused';
       return null;
     } catch (err) {
-      // cancelAnimationFrame(requestId);
       return null;
     }
   }
 
-  async changePageModel(page: number) {
+  async changePageModel(page: number): Promise<Data | null> {
     try {
-      const mode = globalState.view;
+      const mode: View = globalState.view;
 
       if (mode === Constant.GARAGE) {
-        const dataObj = await api.getCars([
+        const dataObj: ReturnObj = await api.getCars([
           { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
           { key: `${Constant.PAGE}`, value: `${page}` },
         ]);
@@ -158,14 +147,42 @@ class ModelRaceSection implements RaceSection {
     }
   }
 
-  playAnimateModel(id: number, engineParams: Engine, elem: HTMLElement) {
+  async carWinnerModel(carEngine: CarEngine, duration: number): Promise<DataWinObject | null> {
+    try {
+      const newId: number = carEngine[Constant.ZERO];
+      const winnerExists: DataWinObject | null = await api.getWinner(newId);
+      if (winnerExists) {
+        const { id, time, wins } = winnerExists;
+        if (time > duration) {
+          const countWins: number = wins + Constant.ONE;
+          const updateWinObj: UpdateWinObj = { time: duration, wins: countWins };
+          return await api.updateWinner(id, updateWinObj);
+        }
+        const countWins: number = wins + Constant.ONE;
+        const updateWinObj: UpdateWinObj = { time, wins: countWins };
+        const isUpdate: DataWinObject | null = await api.updateWinner(id, updateWinObj);
+        if (isUpdate) {
+          const returnWinObj: DataWinObject = { id, time: duration, wins: countWins };
+          return returnWinObj;
+        }
+      }
+
+      const wins: number = Constant.ONE;
+      const newWinObj: DataWinObject = { time: duration, wins, id: newId };
+      return await api.createWinner(newWinObj);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  playAnimateModel(id: number, engineParams: Engine, elem: HTMLElement): void {
     const svgElem = elem;
     const { velocity, distance } = engineParams;
     const duration = distance / velocity;
     animate(id, duration, svgElem);
   }
 
-  stopAnimateModel(id: number) {
+  stopAnimateModel(id: number): boolean {
     const carCur = globalState.engineCarsStatus.get(id);
     if (carCur && carCur.controller) {
       const { requestId, controller } = carCur;
@@ -178,7 +195,7 @@ class ModelRaceSection implements RaceSection {
     return false;
   }
 
-  resetPositionModel(id: number, elem: HTMLElement) {
+  resetPositionModel(id: number, elem: HTMLElement): boolean {
     const svgCarElem: HTMLElement = elem;
     svgCarElem.style.left = '';
     const carCur: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);

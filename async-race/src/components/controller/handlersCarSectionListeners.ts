@@ -11,6 +11,11 @@ import controllerRaceSection from './ControllerRaceSection';
 import changeTitlePage from '../../utils/changeTitlePage';
 import globalState from '../../utils/globalState';
 import ConstantsDom from '../../models/Dom';
+import createWinModal from '../elements/garage/createWinModal';
+import DataWinObjectName from '../../interfaces/DataWinObjectName';
+import checkPageButtons from '../../utils/checkPageButtons';
+import { wrapperCreateCar } from '../elements/createPageButtons';
+import lockButtons from '../../utils/lockButton';
 
 export default async function handlersCarSectionListeners(e: MouseEvent, inputObj: InputObject, page: number) {
   const { target, currentTarget } = e;
@@ -59,6 +64,8 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
           break;
         }
         case Constant.RACE: {
+          lockButtons(true);
+          globalState.engineCarsStatus.clear();
           const buttonReset: HTMLButtonElement = <HTMLButtonElement>target.nextElementSibling;
 
           globalState.isRace = true;
@@ -87,9 +94,9 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
             curButton.disabled = false;
           });
           globalState.isAllCarsReady = true;
-          const promiseResultEngine = await Promise.any(
+          const promiseResultEngine: Engine | null = await Promise.any(
             svgCarsCollection.map(async (elem, inx) => {
-              const resObj = promiseResult[inx];
+              const resObj: Engine | null = promiseResult[inx];
               if (resObj) {
                 const id = Number(elem.id);
                 return controllerRaceSection.switchEngineHandler(id, Constant.DRIVE, resObj, elem);
@@ -98,11 +105,19 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
             })
           );
           globalState.isRace = false;
-          console.log(promiseResultEngine);
+
+          if (promiseResultEngine) {
+            const carWinnerObj: DataWinObjectName | null = await controllerRaceSection.winnerHandler(
+              promiseResultEngine
+            );
+            if (carWinnerObj) createWinModal(carWinnerObj);
+          }
           break;
         }
 
         case Constant.RESET: {
+          lockButtons(false);
+          checkPageButtons(wrapperCreateCar.elem);
           const buttonRace: HTMLButtonElement = <HTMLButtonElement>target.previousElementSibling;
           target.disabled = true;
           buttonRace.disabled = true;
@@ -141,7 +156,7 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
             const { randomCarsData, count } = generateCars;
             changeTitlePage(count, page);
             randomCarsData.forEach((car: DataObject) => {
-              const length = raceListDiv.childElementCount;
+              const length: number = raceListDiv.childElementCount;
               if (length < Constant.SEVEN) {
                 const carOnTrack: HTMLDivElement = createCarOnRace(car);
                 raceListDiv.append(carOnTrack);
@@ -152,6 +167,7 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
           } else {
             target.innerText = `${Constant.TRY_AGAIN}`;
           }
+          checkPageButtons(wrapperCreateCar.elem);
           target.disabled = false;
           break;
         }

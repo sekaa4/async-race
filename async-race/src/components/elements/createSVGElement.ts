@@ -4,7 +4,7 @@ import SVGParams from '../../interfaces/SVGParams';
 
 export default function createSVGElement(anchor?: string, { fill, id }: SVGParams = {}): SVGSVGElement {
   const svgElem: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const useSvg = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  const useSvg: SVGUseElement = document.createElementNS('http://www.w3.org/2000/svg', 'use');
   useSvg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${anchor}`);
 
   if (anchor && fill && id) {

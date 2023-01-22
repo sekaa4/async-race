@@ -6,18 +6,12 @@ import Engine from '../../interfaces/Engine';
 import Constant from '../../models/Constant';
 import globalState from '../../utils/globalState';
 import Data from '../../interfaces/Data.type';
-// import ControllerCarSection from './ControllerCarSection';
+import CarEngine from '../../interfaces/CarEngine.type';
+import DataWinObject from '../../interfaces/DataWinObject';
+import ControllerRace from '../../interfaces/ControllerRace';
+import DataWinObjectName from '../../interfaces/DataWinObjectName';
 
-interface ControllerRaceSection {
-  removeHandler(id: number, page: number): Promise<ReturnObj | null>;
-  selectHandler(id: number): Promise<DataObject | null>;
-
-  // startHandler();
-
-  // stopHandler();
-}
-
-class ControllerRaceSection implements ControllerRaceSection {
+class ControllerRaceSection implements ControllerRace {
   async removeHandler(id: number, page: number): Promise<ReturnObj | null> {
     try {
       const isRemove: ReturnObj | null = await modelRaceSection.removeButtonModel(id, page);
@@ -42,10 +36,6 @@ class ControllerRaceSection implements ControllerRaceSection {
     }
   }
 
-  // raceHandler() {}
-
-  // resetHandler() {}
-
   async startStopHandler(id: number, action: StatusEngine): Promise<Engine | null> {
     try {
       const statusObj: Engine | null = await modelRaceSection.startStopButtonModel(id, action);
@@ -59,7 +49,12 @@ class ControllerRaceSection implements ControllerRaceSection {
     }
   }
 
-  async switchEngineHandler(id: number, action: StatusEngine, engineParams: Engine, elem: HTMLElement) {
+  async switchEngineHandler(
+    id: number,
+    action: StatusEngine,
+    engineParams: Engine,
+    elem: HTMLElement
+  ): Promise<Engine> {
     modelRaceSection.playAnimateModel(id, engineParams, elem);
     const result: boolean | null = await modelRaceSection.switchEngineModel(id, action);
     if (result) {
@@ -109,6 +104,25 @@ class ControllerRaceSection implements ControllerRaceSection {
           return await modelRaceSection.changePageModel(prevPageWinners);
         }
       }
+      return null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async winnerHandler(engine: Engine): Promise<DataWinObjectName | null> {
+    try {
+      const carsEngine: CarEngine[] = Array.from(globalState.engineCarsStatus);
+      const duration: number = engine.distance / engine.velocity;
+      const car: CarEngine = <CarEngine>(
+        carsEngine.find((carEngine: CarEngine) => carEngine[Constant.ONE].duration === duration)
+      );
+      const result: DataWinObject | null = await modelRaceSection.carWinnerModel(car, duration);
+      if (result) {
+        const carName: string = car[Constant.ONE].name;
+        return { ...result, carName };
+      }
+
       return null;
     } catch (err) {
       return null;

@@ -1,6 +1,7 @@
 import StatusEngine from './StatusEngine.type';
 
 interface StatusCar {
+  name: string;
   status: StatusEngine;
   duration: number;
   progress: number;

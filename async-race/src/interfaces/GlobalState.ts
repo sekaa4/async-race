@@ -2,6 +2,7 @@
 import Constant from '../models/Constant';
 import Data from './Data.type';
 import StatusCar from './StatusCar';
+import View from './View.type';
 
 interface GlobalState {
   carsPage: number;
@@ -19,7 +20,7 @@ interface GlobalState {
   engineCarsStatus: Map<number, StatusCar>;
   isRace: boolean;
   isAllCarsReady: boolean;
-  view: `${Constant.GARAGE}` | `${Constant.WINNERS}`;
+  view: View;
   sortBy: null | `${Constant.SORT_BY_WINS}`;
   sortOrder: null | `${Constant.SORT_BY_ORDER}`;
   animation: [];
