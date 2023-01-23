@@ -3,9 +3,9 @@
   padding: 1rem;
   font-style: normal;
   font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 0.7rem;
-  height: 3.5rem;
+  font-size: 1.4rem;
+  line-height: 1rem;
+  height: 3rem;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
@@ -26,20 +26,17 @@
   }
 }
 
-.header-button__garage {
-}
-
 .button-line,
 .create-line,
 .update-line {
   display: flex;
-  column-gap: 3rem;
+  column-gap: 1rem;
 }
 
 .button-engine {
-  height: 4rem;
+  height: 3.2rem;
 }
 
 .button-page {
-  width: 10.25rem;
+  width: 10.15rem;
 }

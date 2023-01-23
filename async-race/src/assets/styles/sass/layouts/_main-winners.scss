@@ -3,12 +3,11 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  //padding: 1rem;
   font-style: normal;
   font-weight: 600;
-  height: 5rem;
-  font-size: 2rem;
-  line-height: 1.8rem;
+  height: 3rem;
+  font-size: 1.4rem;
+  line-height: 1.2rem;
   border-radius: 4px;
   background: $color-hovered;
   border-color: $color-hovered;
@@ -17,7 +16,7 @@
   text-align: center;
 
   & > * {
-    flex-basis: 18rem;
+    flex-basis: 12rem;
   }
 }
 
@@ -27,13 +26,13 @@
   justify-content: space-evenly;
   font-style: normal;
   font-weight: 600;
-  font-size: 1.8rem;
-  line-height: 1.6rem;
+  font-size: 1.4rem;
+  line-height: 1.4rem;
   align-items: center;
   text-align: center;
 
   & > * {
-    flex-basis: 18rem;
+    flex-basis: 12rem;
   }
 }
 
@@ -51,7 +50,7 @@
 
 .car-winner {
   width: 11rem;
-  height: 7.5rem;
+  height: 3.5rem;
 }
 
 .header-title__contain {
@@ -65,7 +64,7 @@
 
 .contain-best-time {
   position: relative;
-  line-height: 2.2rem;
+  line-height: 1.4rem;
   cursor: pointer;
 }
 
@@ -76,7 +75,7 @@
   align-items: center;
   &:after {
     border: solid black;
-    border-width: 0 5px 5px 0;
+    border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
     transform: rotate(45deg);
@@ -91,7 +90,7 @@
   align-items: center;
   &:after {
     border: solid black;
-    border-width: 0 5px 5px 0;
+    border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
     transform: rotate(-135deg);
