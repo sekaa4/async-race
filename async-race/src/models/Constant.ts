@@ -37,6 +37,7 @@ enum Constant {
   WINNERS = 'WINNERS',
   PREVIOUS = 'PREVIOUS',
   NEXT = 'NEXT',
+  COUNT = 'count',
   VIEW_GARAGE = 'garage',
   VIEW_WINNERS = 'winners',
   ORANGE_COLOR = 'orange',

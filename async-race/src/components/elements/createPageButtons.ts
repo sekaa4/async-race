@@ -9,7 +9,7 @@ export const countText: HTMLHeadElement = createElement(ConstantsDom.H3, HTMLHea
 });
 
 export const wrapperCreateCar: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
-  classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
+  classes: [ConstantsDom.PAGINATION_WRAPPER],
 });
 
 export function createPageButtons(count: number, page: number, limit: number): HTMLDivElement {

@@ -6,6 +6,7 @@ import createSVGElement from '../createSVGElement';
 
 export default function createLineWinner(lineCar: TableWinnerDataObj, number: number) {
   const { id, wins, time, name, color } = lineCar;
+  const timeSec = (time / Constant.ONETHOUSAND).toFixed(Constant.TWO);
   const lineWinner: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.LINE],
     attributes: [['data-id', `${id}`]],
@@ -20,6 +21,7 @@ export default function createLineWinner(lineCar: TableWinnerDataObj, number: nu
     fill: `${color}`,
     id: `${id}`,
   });
+  svgElem.classList.add(ConstantsDom.CAR_WINNER);
   lineWinner.append(svgElem);
 
   createElement(ConstantsDom.SPAN, HTMLSpanElement, {
@@ -35,7 +37,7 @@ export default function createLineWinner(lineCar: TableWinnerDataObj, number: nu
   createElement(ConstantsDom.SPAN, HTMLSpanElement, {
     parentElement: lineWinner,
     classes: [ConstantsDom.COLUMN_BEST_TIME],
-    text: `${time}`,
+    text: `${timeSec}`,
   });
 
   return lineWinner;

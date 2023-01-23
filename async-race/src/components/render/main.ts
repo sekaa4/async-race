@@ -10,6 +10,7 @@ import checkPageButtons from '../../utils/checkPageButtons';
 import DataWinObject from '../../interfaces/DataWinObject';
 import { createTableWinners } from '../elements/winners/createTableWinners';
 import { createWinnersTitlePage } from '../elements/winners/createWinnersTitlePage';
+import createHeaderTable from '../elements/winners/createHeaderTable';
 
 export const main: HTMLElement = createElement(ConstantsDom.MAIN, HTMLElement, {
   classes: [ConstantsDom.MAIN],
@@ -32,15 +33,16 @@ export async function renderMain(count: number, data: Data | DataWinObject[], pa
   }
   if (globalState.view === Constant.WINNERS) {
     const tableSection: HTMLElement = createElement(ConstantsDom.SECTION, HTMLElement, {
-      classes: [ConstantsDom.SECTION, ConstantsDom.MAIN_SECTION, ConstantsDom.WRAPPER],
+      classes: [ConstantsDom.SECTION, ConstantsDom.WINNERS, ConstantsDom.WRAPPER],
     });
     const dataWinners: DataWinObject[] = <DataWinObject[]>data;
 
     const titleWinnersPageElem: HTMLDivElement = createWinnersTitlePage(count, page);
+    const headerTable: HTMLDivElement = createHeaderTable();
     const tableWinnersPageElem: HTMLDivElement = await createTableWinners(dataWinners);
     const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page, Constant.TWO);
     checkPageButtons(wrapperPageButtons, Constant.TWO);
-    tableSection.append(titleWinnersPageElem, tableWinnersPageElem, wrapperPageButtons);
+    tableSection.append(titleWinnersPageElem, headerTable, tableWinnersPageElem, wrapperPageButtons);
     main.append(tableSection);
   }
 
