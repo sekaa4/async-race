@@ -4,6 +4,7 @@ import ReturnObj from '../../interfaces/ReturnObj';
 
 interface ControllerWinnerSection {
   getWinnersHandler(page: number, sort?: string, order?: string): Promise<ReturnObjWinners | null>;
+  getCarsHandler(page: number): Promise<ReturnObj | null>;
 }
 
 class ControllerWinnersSection implements ControllerWinnerSection {
@@ -28,19 +29,6 @@ class ControllerWinnersSection implements ControllerWinnerSection {
       return null;
     }
   }
-
-  // raceHandler() {}
-
-  // resetHandler() {}
-
-  // async generateHandler(): Promise<RandomData | null> {
-  //   try {
-  //     const generateCars: RandomData | null = await modelCarSection.generateCarModel();
-  //     return generateCars;
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // }
 }
 
 const controllerWinnersSection: ControllerWinnersSection = new ControllerWinnersSection();

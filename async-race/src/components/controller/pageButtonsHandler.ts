@@ -17,7 +17,6 @@ export default async function pageButtonsHandler(event: MouseEvent, countTextFie
     if (target instanceof HTMLButtonElement && currentTarget instanceof HTMLElement) {
       const wrapperPageElem: HTMLDivElement = <HTMLDivElement>currentTarget.parentElement;
       const wrapperCarSection: HTMLDivElement = <HTMLDivElement>wrapperPageElem.previousElementSibling;
-      console.dir(wrapperPageElem);
       switch (target.innerText) {
         case Constant.PREVIOUS: {
           const getData: Data | ReturnObjWinners | null = await controllerCarSection.changePageHandler(
@@ -38,7 +37,7 @@ export default async function pageButtonsHandler(event: MouseEvent, countTextFie
             newPageElem.innerText = `${curPage}/${pageCount}`;
           } else if (getData && Constant.COUNT in getData) {
             const { count, data } = getData;
-            const pageCount: number = Math.ceil(count / Constant.TWO);
+            const pageCount: number = Math.ceil(count / Constant.TEN);
             const winnersData: TableWinnerDataObj[] = await createWinnersData(data);
             const newWinnerTableDiv: HTMLElement = createContainTable(winnersData);
             const curPage: number = globalState.winnersPage;
@@ -69,7 +68,7 @@ export default async function pageButtonsHandler(event: MouseEvent, countTextFie
             newPageElem.innerText = `${curPage}/${pageCount}`;
           } else if (getData && Constant.COUNT in getData) {
             const { count, data } = getData;
-            const pageCount: number = Math.ceil(count / Constant.TWO);
+            const pageCount: number = Math.ceil(count / Constant.TEN);
             const winnersData: TableWinnerDataObj[] = await createWinnersData(data);
             const newWinnerTableDiv: HTMLElement = createContainTable(winnersData);
             const curPage: number = globalState.winnersPage;

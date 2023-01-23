@@ -59,7 +59,11 @@ enum Constant {
   CAR_TEXT = 'Car',
   NAME_CAR = 'Name',
   WINS_TEXT = 'Wins',
-  BEST_TIME = 'Best time',
+  BEST_TIME = 'Best time(seconds)',
+  ASC = 'ASC',
+  DESC = 'DESC',
+  WINS = 'wins',
+  TIME = 'time',
 }
 
 export default Constant;

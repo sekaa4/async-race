@@ -33,7 +33,7 @@ class ModelWinnersSection implements WinnersSection {
       } else {
         body = [
           { key: `${Constant.PAGE}`, value: `${page}` },
-          { key: `${Constant.LIMIT}`, value: `${2}` },
+          { key: `${Constant.LIMIT}`, value: `${Constant.TEN}` },
         ];
       }
       const dataWinners: ReturnObjWinners | null = await api.getWinners(body);

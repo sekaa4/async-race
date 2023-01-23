@@ -40,8 +40,8 @@ export async function renderMain(count: number, data: Data | DataWinObject[], pa
     const titleWinnersPageElem: HTMLDivElement = createWinnersTitlePage(count, page);
     const headerTable: HTMLDivElement = createHeaderTable();
     const tableWinnersPageElem: HTMLDivElement = await createTableWinners(dataWinners);
-    const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page, Constant.TWO);
-    checkPageButtons(wrapperPageButtons, Constant.TWO);
+    const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page, Constant.TEN);
+    checkPageButtons(wrapperPageButtons, Constant.TEN);
     tableSection.append(titleWinnersPageElem, headerTable, tableWinnersPageElem, wrapperPageButtons);
     main.append(tableSection);
   }

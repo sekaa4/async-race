@@ -31,7 +31,7 @@ export default function createHeaderTable(): HTMLDivElement {
   createElement(ConstantsDom.SPAN, HTMLSpanElement, {
     parentElement: wrapperHeaderTable,
     classes: [ConstantsDom.HEADER_TITLE_CONTAIN, ConstantsDom.CONTAIN_BEST_TIME],
-    text: `${Constant.BEST_TIME}(seconds)`,
+    text: `${Constant.BEST_TIME}`,
   });
 
   wrapperHeaderTable.addEventListener('click', handlerHeaderTableLine);
