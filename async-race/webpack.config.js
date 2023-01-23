@@ -57,6 +57,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
+      favicon: './assets/icons/raceico.ico',
       minify: {
         collapseWhitespace: isProd,
       },
