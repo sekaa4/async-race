@@ -1,14 +1,21 @@
+import DataWinObject from '../../../interfaces/DataWinObject';
+import TableWinnerDataObj from '../../../interfaces/TableWinnerObj';
 import ConstantsDom from '../../../models/Dom';
-import createElement from '../createElement';
+import createWinnersData from '../../../utils/createWinnersData';
 import CreateElementWrapper from '../CreateElementWrapper';
+import { createContainTable } from './createContainTable';
+import createHeaderTable from './createHeaderTable';
 
-export const racePage: HTMLHeadElement = createElement(ConstantsDom.H3, HTMLHeadElement, {
-  classes: [ConstantsDom.RACE_TITLE, ConstantsDom.TITLE_TEXT],
+export const wrapperWinnersTable: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
+  classes: [ConstantsDom.TABLE, ConstantsDom.MAIN_TABLE],
 });
+const headerTable: HTMLDivElement = createHeaderTable();
+wrapperWinnersTable.elem.append(headerTable);
 
-export function createTableWinners(): HTMLDivElement {
-  const wrapperWinnersTable: CreateElementWrapper = new CreateElementWrapper(ConstantsDom.DIV, {
-    classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
-  });
+export async function createTableWinners(data: DataWinObject[]): Promise<HTMLDivElement> {
+  const winnersData: TableWinnerDataObj[] = await createWinnersData(data);
+  const containTable: HTMLDivElement = createContainTable(winnersData);
+
+  wrapperWinnersTable.elem.append(headerTable, containTable);
   return wrapperWinnersTable.elem;
 }

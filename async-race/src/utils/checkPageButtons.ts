@@ -1,7 +1,7 @@
 import Constant from '../models/Constant';
 import globalState from './globalState';
 
-export default function checkPageButtons(wrapperElem: HTMLElement) {
+export default function checkPageButtons(wrapperElem: HTMLElement, limit: number) {
   let count: number;
   let curPage: number;
 
@@ -13,7 +13,7 @@ export default function checkPageButtons(wrapperElem: HTMLElement) {
     curPage = globalState.winnersPage;
   }
 
-  const pageCount: number = Math.ceil(count / Constant.SEVEN);
+  const pageCount: number = Math.ceil(count / limit);
   const parentButtonElem: HTMLDivElement = <HTMLDivElement>wrapperElem.firstChild;
 
   const prevButton: HTMLButtonElement = <HTMLButtonElement>parentButtonElem.firstChild;

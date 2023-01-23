@@ -16,7 +16,7 @@ export const main: HTMLElement = createElement(ConstantsDom.MAIN, HTMLElement, {
   attributes: [['id', 'app']],
 });
 
-export function renderMain(count: number, data: Data | DataWinObject[], page: number): HTMLElement {
+export async function renderMain(count: number, data: Data | DataWinObject[], page: number): Promise<HTMLElement> {
   main.innerText = '';
   if (globalState.view === Constant.GARAGE) {
     const dataCar: Data = <Data>data;
@@ -25,8 +25,8 @@ export function renderMain(count: number, data: Data | DataWinObject[], page: nu
     });
     const carSection: HTMLElement = createCarSection(page);
     const wrapperSectionDiv: HTMLElement = createRaceSection(dataCar);
-    const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page);
-    checkPageButtons(wrapperPageButtons);
+    const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page, Constant.SEVEN);
+    checkPageButtons(wrapperPageButtons, Constant.SEVEN);
     raceSection.append(wrapperSectionDiv, wrapperPageButtons);
     main.append(carSection, raceSection);
   }
@@ -35,17 +35,13 @@ export function renderMain(count: number, data: Data | DataWinObject[], page: nu
       classes: [ConstantsDom.SECTION, ConstantsDom.MAIN_SECTION, ConstantsDom.WRAPPER],
     });
     const dataWinners: DataWinObject[] = <DataWinObject[]>data;
-    // main.innerHTML = 'Tut winners object';
-    // console.log(dataWinners);
+
     const titleWinnersPageElem: HTMLDivElement = createWinnersTitlePage(count, page);
-    const tableWinnersPageElem: HTMLDivElement = createTableWinners();
-    const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page);
-    checkPageButtons(wrapperPageButtons);
+    const tableWinnersPageElem: HTMLDivElement = await createTableWinners(dataWinners);
+    const wrapperPageButtons: HTMLDivElement = createPageButtons(count, page, Constant.TWO);
+    checkPageButtons(wrapperPageButtons, Constant.TWO);
     tableSection.append(titleWinnersPageElem, tableWinnersPageElem, wrapperPageButtons);
     main.append(tableSection);
-    // const carSection: HTMLElement = createCarSection(page);
-    // const raceSectionDiv: HTMLElement = createRaceSection(count, page, data);
-    // main.append(carSection, raceSectionDiv);
   }
 
   return main;

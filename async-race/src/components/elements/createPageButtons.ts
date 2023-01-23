@@ -12,7 +12,7 @@ export const wrapperCreateCar: CreateElementWrapper = new CreateElementWrapper(C
   classes: [ConstantsDom.WRAPPER, ConstantsDom.MAIN_WRAPPER],
 });
 
-export function createPageButtons(count: number, page: number): HTMLDivElement {
+export function createPageButtons(count: number, page: number, limit: number): HTMLDivElement {
   wrapperCreateCar.elem.innerText = '';
   const createPaginationDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     parentElement: wrapperCreateCar.elem,
@@ -29,7 +29,7 @@ export function createPageButtons(count: number, page: number): HTMLDivElement {
     text: `${Constant.NEXT}`,
   });
 
-  countText.innerText = `${page}/${Math.ceil(count / Constant.SEVEN)}`;
+  countText.innerText = `${page}/${Math.ceil(count / limit)}`;
 
   createPaginationDiv.addEventListener('click', (e: MouseEvent) => {
     pageButtonsHandler(e, countText);

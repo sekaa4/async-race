@@ -118,7 +118,7 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
 
         case Constant.RESET: {
           await lockButtons(false);
-          checkPageButtons(wrapperCreateCar.elem);
+          checkPageButtons(wrapperCreateCar.elem, Constant.SEVEN);
           const buttonRace: HTMLButtonElement = <HTMLButtonElement>target.previousElementSibling;
           target.disabled = true;
           buttonRace.disabled = true;
@@ -168,12 +168,13 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
           } else {
             target.innerText = `${Constant.TRY_AGAIN}`;
           }
-          checkPageButtons(wrapperCreateCar.elem);
+          checkPageButtons(wrapperCreateCar.elem, Constant.SEVEN);
           target.disabled = false;
           break;
         }
 
         default:
+          break;
       }
     }
     return null;

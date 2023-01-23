@@ -54,6 +54,11 @@ enum Constant {
   WAIT = 'Wait...',
   TRY_AGAIN = 'Try again',
   CAR_SVG = 'car-svg',
+  NUMBER_TEXT = 'Number',
+  CAR_TEXT = 'Car',
+  NAME_CAR = 'Name',
+  WINS_TEXT = 'Wins',
+  BEST_TIME = 'Best time',
 }
 
 export default Constant;
