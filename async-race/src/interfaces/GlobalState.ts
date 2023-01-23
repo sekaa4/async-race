@@ -1,6 +1,7 @@
 // import Constant from '../models/Constant';
 import Constant from '../models/Constant';
 import Data from './Data.type';
+import DataWinObject from './DataWinObject';
 import StatusCar from './StatusCar';
 import View from './View.type';
 
@@ -8,7 +9,7 @@ interface GlobalState {
   carsPage: number;
   winnersPage: number;
   carsData: null | Data;
-  carsWinners: null | Data;
+  carsWinners: null | DataWinObject[];
   carsCount: number;
   winnersCount: number;
   idSelectedCar: null | number;

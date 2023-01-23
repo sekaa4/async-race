@@ -2,8 +2,17 @@ import Constant from '../models/Constant';
 import globalState from './globalState';
 
 export default function checkPageButtons(wrapperElem: HTMLElement) {
-  const count: number = globalState.carsCount;
-  const curPage: number = globalState.carsPage;
+  let count: number;
+  let curPage: number;
+
+  if (globalState.view === Constant.GARAGE) {
+    count = globalState.carsCount;
+    curPage = globalState.carsPage;
+  } else {
+    count = globalState.winnersCount;
+    curPage = globalState.winnersPage;
+  }
+
   const pageCount: number = Math.ceil(count / Constant.SEVEN);
   const parentButtonElem: HTMLDivElement = <HTMLDivElement>wrapperElem.firstChild;
 

@@ -4,11 +4,11 @@ import ConstantsDom from '../../../models/Dom';
 import createButtonLine from './createButtonLine';
 import { createUpdateLine } from './createUpdateLine';
 import createCarLine from './createCarLine';
-import buttonLineHandler from '../../controller/handlersCarSectionListeners';
 import InputObject from '../../../interfaces/InputObject';
 import CarLine from '../../../interfaces/CarLine';
 import UpdateLine from '../../../interfaces/UpdateLine';
 import checkCarSectionButtons from '../../../utils/checkCarSectionButtons';
+import handlersCarSectionListeners from '../../controller/handlersCarSectionListeners';
 
 export default function createCarSection(page: number): HTMLElement {
   const carSection: HTMLElement = createElement(ConstantsDom.SECTION, HTMLElement, {
@@ -33,7 +33,7 @@ export default function createCarSection(page: number): HTMLElement {
 
   const inputObj: InputObject = { inputText, inputColor, inputUpdateText, inputUpdateColor };
   checkCarSectionButtons(inputObj);
-  createCarDiv.addEventListener('click', (e: MouseEvent) => buttonLineHandler(e, inputObj, page));
+  createCarDiv.addEventListener('click', async (e: MouseEvent) => handlersCarSectionListeners(e, inputObj, page));
   createCarDiv.append(carLineDiv, carUpdateLineDiv, buttonLine);
 
   return carSection;

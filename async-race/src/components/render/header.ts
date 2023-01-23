@@ -1,7 +1,7 @@
 import createElement from '../elements/createElement';
 import ConstantsDom from '../../models/Dom';
-import globalState from '../../utils/globalState';
 import Constant from '../../models/Constant';
+import headerButtonsHandler from '../controller/headerButtonsHandler';
 
 export default function renderHeader(): HTMLElement {
   const header: HTMLElement = createElement(ConstantsDom.HEADER, HTMLElement, {
@@ -28,18 +28,19 @@ export default function renderHeader(): HTMLElement {
     text: `${Constant.TO_WINNERS}`,
   });
 
-  if (globalState.view === Constant.GARAGE) {
-    buttonGarage.disabled = true;
-  } else buttonWinners.disabled = true;
+  buttonGarage.disabled = true;
 
-  buttonGarage.addEventListener('click', () => {
-    buttonGarage.disabled = true;
-    buttonWinners.disabled = false;
-  });
+  // buttonGarage.addEventListener('click', () => {
+  //   buttonGarage.disabled = true;
+  //   buttonWinners.disabled = false;
+  // });
 
-  buttonWinners.addEventListener('click', () => {
-    buttonWinners.disabled = true;
-    buttonGarage.disabled = false;
+  // buttonWinners.addEventListener('click', () => {
+
+  // });
+
+  headerButtonDiv.addEventListener('click', (e: MouseEvent) => {
+    headerButtonsHandler(e);
   });
 
   headerButtonDiv.append(buttonGarage, buttonWinners);

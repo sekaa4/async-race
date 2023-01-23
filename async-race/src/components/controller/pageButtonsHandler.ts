@@ -1,4 +1,5 @@
 import Data from '../../interfaces/Data.type';
+import ReturnObjWinners from '../../interfaces/ReturnObjWinners';
 import Constant from '../../models/Constant';
 import globalState from '../../utils/globalState';
 import createRaceSection from '../elements/garage/createRaceSection';
@@ -15,12 +16,13 @@ export default async function pageButtonsHandler(event: MouseEvent, countTextFie
       // const wrapperSectionDiv: HTMLElement = createRaceSection(count, page, data);
       switch (target.innerText) {
         case Constant.PREVIOUS: {
-          const dataCars: Data | null = await controllerCarSection.changePageHandler(Constant.PREVIOUS);
+          const data: Data | ReturnObjWinners | null = await controllerCarSection.changePageHandler(Constant.PREVIOUS);
           const nextButton: HTMLButtonElement = <HTMLButtonElement>currentTarget.lastElementChild;
           const pageCount: number = Math.ceil(count / Constant.SEVEN);
-          if (dataCars) {
+          if (data && !(count in data)) {
+            const dataCars = <Data>data;
             const newWrapperSectionDiv: HTMLElement = createRaceSection(dataCars);
-            const curPage = globalState.carsPage;
+            const curPage: number = globalState.carsPage;
             if (curPage === Constant.ONE) target.disabled = true;
             if (curPage <= pageCount) nextButton.disabled = false;
             wrapperCarSection.remove();
@@ -31,12 +33,13 @@ export default async function pageButtonsHandler(event: MouseEvent, countTextFie
           break;
         }
         case Constant.NEXT: {
-          const dataCars: Data | null = await controllerCarSection.changePageHandler(Constant.NEXT);
+          const data: Data | ReturnObjWinners | null = await controllerCarSection.changePageHandler(Constant.NEXT);
           const prevButton: HTMLButtonElement = <HTMLButtonElement>currentTarget.firstElementChild;
           const pageCount: number = Math.ceil(count / Constant.SEVEN);
-          if (dataCars) {
+          if (data && !(count in data)) {
+            const dataCars: Data = <Data>data;
             const newWrapperSectionDiv: HTMLElement = createRaceSection(dataCars);
-            const curPage = globalState.carsPage;
+            const curPage: number = globalState.carsPage;
             if (curPage > Constant.ONE) prevButton.disabled = false;
             if (curPage === pageCount) target.disabled = true;
             wrapperCarSection.remove();

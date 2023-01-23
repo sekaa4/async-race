@@ -6,7 +6,7 @@ import Data from '../interfaces/Data.type';
 export default function buildPage(count: number, data: Data, page: number): void {
   const header: HTMLElement = renderHeader();
   const main: HTMLElement = renderMain(count, data, page);
-  const footer = renderFooter();
+  const footer: HTMLElement = renderFooter();
 
   document.body.append(header, main, footer);
 }

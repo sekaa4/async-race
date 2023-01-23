@@ -12,12 +12,14 @@ export const racePage: HTMLHeadElement = createElement(ConstantsDom.H3, HTMLHead
 });
 
 export function createTitlePage(): HTMLDivElement {
+  const { view, carsCount, carsPage } = globalState;
+
   const raceTitlePage: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.RACE_TITLE_PAGE, ConstantsDom.TITLE_PAGE],
   });
 
-  raceTitle.innerText = `${Constant.GARAGE}(${globalState.carsCount})`;
-  racePage.innerText = `${Constant.MAINPAGE} #${globalState.carsPage}`;
+  raceTitle.innerText = `${view}(${carsCount})`;
+  racePage.innerText = `${Constant.MAINPAGE} #${carsPage}`;
 
   raceTitlePage.append(raceTitle, racePage);
 

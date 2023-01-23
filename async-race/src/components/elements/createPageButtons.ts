@@ -13,6 +13,7 @@ export const wrapperCreateCar: CreateElementWrapper = new CreateElementWrapper(C
 });
 
 export function createPageButtons(count: number, page: number): HTMLDivElement {
+  wrapperCreateCar.elem.innerText = '';
   const createPaginationDiv: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     parentElement: wrapperCreateCar.elem,
     classes: [ConstantsDom.MAIN_PAGE, ConstantsDom.PAGINATION],

@@ -64,8 +64,9 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
           break;
         }
         case Constant.RACE: {
-          lockButtons(true);
+          await lockButtons(true);
           globalState.engineCarsStatus.clear();
+          const { view } = globalState;
           const buttonReset: HTMLButtonElement = <HTMLButtonElement>target.nextElementSibling;
 
           globalState.isRace = true;
@@ -110,13 +111,13 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
             const carWinnerObj: DataWinObjectName | null = await controllerRaceSection.winnerHandler(
               promiseResultEngine
             );
-            if (carWinnerObj) createWinModal(carWinnerObj);
+            if (carWinnerObj && view === Constant.GARAGE) createWinModal(carWinnerObj);
           }
           break;
         }
 
         case Constant.RESET: {
-          lockButtons(false);
+          await lockButtons(false);
           checkPageButtons(wrapperCreateCar.elem);
           const buttonRace: HTMLButtonElement = <HTMLButtonElement>target.previousElementSibling;
           target.disabled = true;

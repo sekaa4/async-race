@@ -13,11 +13,6 @@ interface ControllerCarSection {
     inputColor: HTMLInputElement,
     oldName?: string
   ): Promise<DataObject | null>;
-
-  // raceHandler();
-
-  // resetHandler();
-
   generateHandler(): Promise<RandomData | null>;
 }
 
@@ -58,10 +53,6 @@ class ControllerCarSection implements ControllerCarSection {
     }
   }
 
-  // raceHandler() {}
-
-  // resetHandler() {}
-
   async generateHandler(): Promise<RandomData | null> {
     try {
       const generateCars: RandomData | null = await modelCarSection.generateCarModel();
@@ -72,5 +63,5 @@ class ControllerCarSection implements ControllerCarSection {
   }
 }
 
-const controllerCarSection = new ControllerCarSection();
+const controllerCarSection: ControllerCarSection = new ControllerCarSection();
 export default controllerCarSection;

@@ -14,6 +14,8 @@ import UpdateWinObj from '../interfaces/UpdateWinObj.type.';
 import Data from '../interfaces/Data.type';
 import RaceSection from '../interfaces/RaceSection';
 import View from '../interfaces/View.type';
+import modelWinnersSection from './modelWinnersSection';
+import ReturnObjWinners from '../interfaces/ReturnObjWinners';
 
 class ModelRaceSection implements RaceSection {
   async selectButtonModel(id: number): Promise<DataObject | null> {
@@ -110,7 +112,7 @@ class ModelRaceSection implements RaceSection {
     }
   }
 
-  async changePageModel(page: number): Promise<Data | null> {
+  async changePageModel(page: number): Promise<Data | ReturnObjWinners | null> {
     try {
       const mode: View = globalState.view;
 
@@ -128,17 +130,16 @@ class ModelRaceSection implements RaceSection {
       }
 
       if (mode === Constant.WINNERS) {
-        const dataObj = await api.getWinners([
-          { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
-          { key: `${Constant.PAGE}`, value: `${page}` },
-        ]);
+        const dataObjWinners = await modelWinnersSection.getWinnersModel(page);
 
-        const { count, data } = dataObj;
-        if (count && data) {
+        if (dataObjWinners) {
+          // const { count, data } = dataObj;
+          const { data } = dataObjWinners;
           globalState.carsWinners = data;
           globalState.winnersPage = page;
+
+          return dataObjWinners;
         }
-        return data;
       }
 
       return null;
@@ -175,14 +176,14 @@ class ModelRaceSection implements RaceSection {
     }
   }
 
-  playAnimateModel(id: number, engineParams: Engine, elem: HTMLElement): void {
+  async playAnimateModel(id: number, engineParams: Engine, elem: HTMLElement): Promise<void> {
     const svgElem = elem;
     const { velocity, distance } = engineParams;
     const duration = distance / velocity;
     animate(id, duration, svgElem);
   }
 
-  stopAnimateModel(id: number): boolean {
+  async stopAnimateModel(id: number): Promise<boolean> {
     const carCur = globalState.engineCarsStatus.get(id);
     if (carCur && carCur.controller) {
       const { requestId, controller } = carCur;
@@ -195,7 +196,7 @@ class ModelRaceSection implements RaceSection {
     return false;
   }
 
-  resetPositionModel(id: number, elem: HTMLElement): boolean {
+  async resetPositionModel(id: number, elem: HTMLElement): Promise<boolean> {
     const svgCarElem: HTMLElement = elem;
     svgCarElem.style.left = '';
     const carCur: StatusCar = <StatusCar>globalState.engineCarsStatus.get(id);

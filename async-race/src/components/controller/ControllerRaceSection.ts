@@ -10,6 +10,7 @@ import CarEngine from '../../interfaces/CarEngine.type';
 import DataWinObject from '../../interfaces/DataWinObject';
 import ControllerRace from '../../interfaces/ControllerRace';
 import DataWinObjectName from '../../interfaces/DataWinObjectName';
+import ReturnObjWinners from '../../interfaces/ReturnObjWinners';
 
 class ControllerRaceSection implements ControllerRace {
   async removeHandler(id: number, page: number): Promise<ReturnObj | null> {
@@ -60,15 +61,15 @@ class ControllerRaceSection implements ControllerRace {
     if (result) {
       return engineParams;
     }
-    modelRaceSection.stopAnimateModel(id);
+    await modelRaceSection.stopAnimateModel(id);
     throw new Error();
   }
 
   async stopAnimationHandler(id: number, elem: HTMLElement): Promise<boolean | null> {
     try {
-      const result: boolean = modelRaceSection.stopAnimateModel(id);
+      const result: boolean = await modelRaceSection.stopAnimateModel(id);
       if (result) {
-        const resetPosition: boolean = modelRaceSection.resetPositionModel(id, elem);
+        const resetPosition: boolean = await modelRaceSection.resetPositionModel(id, elem);
         return resetPosition || false;
       }
 
@@ -78,7 +79,7 @@ class ControllerRaceSection implements ControllerRace {
     }
   }
 
-  async changePageHandler(option: string): Promise<Data | null> {
+  async changePageHandler(option: string): Promise<Data | ReturnObjWinners | null> {
     try {
       const mode = globalState.view;
 
