@@ -11,18 +11,7 @@ import globalState from '../../utils/globalState';
       { key: `${Constant.PAGE}`, value: `${globalState.carsPage}` },
     ]);
 
-    // const dataWinners: ReturnObj = await getWinners([
-    //   { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
-    //   { key: `${Constant.PAGE}`, value: `${globalState.winnersPage}` },
-    // ]);
-
     const { data: carsData, count: carsCount } = dataCars;
-    // const { data: carsWinners, count: winnersCount } = dataWinners;
-
-    // if (winnersCount || winnersCount === 0) {
-    //   globalState.carsWinners = carsWinners;
-    //   globalState.winnersCount = winnersCount;
-    // }
     if (carsCount || carsCount === Constant.ZERO) {
       globalState.carsData = carsData;
       globalState.carsCount = carsCount;

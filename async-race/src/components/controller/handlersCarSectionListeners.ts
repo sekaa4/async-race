@@ -6,7 +6,7 @@ import ReturnObj from '../../interfaces/ReturnObj';
 import Constant from '../../models/Constant';
 import createCarOnRace from '../elements/garage/createCarOnRace';
 import { raceListDiv } from '../elements/garage/createListCars';
-import controllerCarSection from './ControllerCarSection';
+import controllerCarSection from './ControllerCarsSection';
 import controllerRaceSection from './ControllerRaceSection';
 import changeTitlePage from '../../utils/changeTitlePage';
 import globalState from '../../utils/globalState';

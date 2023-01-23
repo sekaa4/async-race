@@ -15,7 +15,6 @@ export default function createCarOnRace(car: DataObject): HTMLDivElement {
   const chooseButtons: HTMLDivElement = createChooseButtons(car);
   const controlCar: HTMLDivElement = createControlCar(car);
   checkControlButtons(controlCar, car.id);
-  // checkCarOnTrack(controlCar, car.id);
 
   carOnTrack.append(chooseButtons, controlCar);
   carOnTrack.addEventListener('click', (e: MouseEvent) => chooseButtonsHandler(e, car));

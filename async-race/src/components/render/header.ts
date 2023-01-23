@@ -29,16 +29,6 @@ export default function renderHeader(): HTMLElement {
   });
 
   buttonGarage.disabled = true;
-
-  // buttonGarage.addEventListener('click', () => {
-  //   buttonGarage.disabled = true;
-  //   buttonWinners.disabled = false;
-  // });
-
-  // buttonWinners.addEventListener('click', () => {
-
-  // });
-
   headerButtonDiv.addEventListener('click', (e: MouseEvent) => {
     headerButtonsHandler(e);
   });

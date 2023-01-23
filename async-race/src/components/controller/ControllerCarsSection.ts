@@ -1,22 +1,10 @@
-// import Data from '../../interfaces/Data.type';
 import RandomData from '../../interfaces/RandomData';
 import DataObject from '../../interfaces/DataObject';
 import ReturnObj from '../../interfaces/ReturnObj';
 import modelCarSection from '../../models/modelCreateSection';
+import ControllerCarsSection from '../../interfaces/ControllerCarSection';
 
-interface ControllerCarSection {
-  createHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement): Promise<ReturnObj | null>;
-
-  updateHandler(
-    e: MouseEvent,
-    inputText: HTMLInputElement,
-    inputColor: HTMLInputElement,
-    oldName?: string
-  ): Promise<DataObject | null>;
-  generateHandler(): Promise<RandomData | null>;
-}
-
-class ControllerCarSection implements ControllerCarSection {
+class ControllerCarSection implements ControllerCarsSection {
   async createHandler(
     e: MouseEvent,
     inputText: HTMLInputElement,

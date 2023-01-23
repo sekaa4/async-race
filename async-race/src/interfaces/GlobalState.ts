@@ -1,4 +1,3 @@
-// import Constant from '../models/Constant';
 import Constant from '../models/Constant';
 import Data from './Data.type';
 import DataWinObject from './DataWinObject';

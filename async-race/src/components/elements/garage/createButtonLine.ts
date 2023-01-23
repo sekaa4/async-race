@@ -1,6 +1,5 @@
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
-// import buttonLineHandler from '../../controller/carButtonsHandler';
 import globalState from '../../../utils/globalState';
 import Constant from '../../../models/Constant';
 

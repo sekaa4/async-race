@@ -1,7 +1,3 @@
-// import * as api from '../api/api';
-// import buildPage from '../components/buildPage';
-// import ReturnObj from '../interfaces/ReturnObj';
-// import Constant from '../models/Constant';
 import GlobalState from '../interfaces/GlobalState';
 import Constant from '../models/Constant';
 
@@ -28,10 +24,3 @@ const globalState: GlobalState = {
 };
 
 export default globalState;
-
-// try {
-//   const dataCars: ReturnObj | null =
-//   if (dataCars && (dataCars.count || dataCars.count === 0)) {
-//     const { count, data } = dataCars;
-//   }
-// } catch (err) {

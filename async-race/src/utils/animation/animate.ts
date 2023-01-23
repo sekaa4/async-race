@@ -2,7 +2,6 @@ import Constant from '../../models/Constant';
 import globalState from '../globalState';
 import timing from './timing';
 import draw from './draw';
-// import * as api from '../../api/api';
 
 export default async function animate(id: number, duration: number, elem: HTMLElement) {
   const start = performance.now();

@@ -2,7 +2,6 @@ import Data from '../../interfaces/Data.type';
 import ReturnObjWinners from '../../interfaces/ReturnObjWinners';
 import TableWinnerDataObj from '../../interfaces/TableWinnerObj';
 import Constant from '../../models/Constant';
-// import checkPageButtons from '../../utils/checkPageButtons';
 import createWinnersData from '../../utils/createWinnersData';
 import globalState from '../../utils/globalState';
 import createRaceSection from '../elements/garage/createRaceSection';

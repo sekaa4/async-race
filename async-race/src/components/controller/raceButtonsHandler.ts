@@ -5,8 +5,6 @@ import controllerRaceSection from './ControllerRaceSection';
 import ReturnObj from '../../interfaces/ReturnObj';
 import changeTitlePage from '../../utils/changeTitlePage';
 import globalState from '../../utils/globalState';
-
-// eslint-disable-next-line import/no-cycle
 import createCarOnRace from '../elements/garage/createCarOnRace';
 import ConstantsDom from '../../models/Dom';
 import Engine from '../../interfaces/Engine';
@@ -77,7 +75,6 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
             target.style.backgroundColor = '';
             buttonStop.disabled = false;
             await controllerRaceSection.switchEngineHandler(car.id, Constant.DRIVE, statusObj, svgCarElem);
-            // await controllerRaceSection.startStopHandler(car.id, 'stopped');
           }
           break;
         }
