@@ -1,0 +1,99 @@
+.header-title {
+  @extend %font-prim;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  //padding: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 1rem;
+  height: 3.5rem;
+  border-radius: 4px;
+  background: $color-hovered;
+  border-color: $color-hovered;
+  border: 1px solid $color-border;
+  color: $color-text;
+  text-align: center;
+
+  & > * {
+    flex-basis: 16rem;
+  }
+}
+
+.line {
+  @extend %font-prim;
+  display: flex;
+  justify-content: space-evenly;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 0.7rem;
+  align-items: center;
+  text-align: center;
+
+  & > * {
+    flex-basis: 16rem;
+  }
+}
+
+.winners {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.table-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.car-winner {
+  width: 11rem;
+  height: 7.5rem;
+}
+
+.header-title__contain {
+  cursor: default;
+}
+
+.contain-wins-text {
+  position: relative;
+  cursor: pointer;
+}
+
+.contain-best-time {
+  position: relative;
+  cursor: pointer;
+}
+
+.asc {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+  align-items: center;
+  &:after {
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    content: '';
+  }
+}
+
+.desc {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+  align-items: center;
+  &:after {
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-135deg);
+    content: '';
+  }
+}
