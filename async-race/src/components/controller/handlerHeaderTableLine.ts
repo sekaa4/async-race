@@ -14,6 +14,7 @@ export default async function handlerHeaderTableLine(e: MouseEvent) {
   if (target instanceof HTMLSpanElement && currentTarget instanceof HTMLDivElement) {
     switch (target.innerText) {
       case Constant.WINS_TEXT: {
+        globalState.sortBy = Constant.WINS;
         target.nextElementSibling?.classList.remove(Constant.ASC, Constant.DESC);
         if (target.classList.contains(Constant.ASC)) {
           target.classList.remove(Constant.ASC);
@@ -24,13 +25,16 @@ export default async function handlerHeaderTableLine(e: MouseEvent) {
         } else target.classList.add(Constant.ASC);
 
         if (target.classList.contains(Constant.ASC)) {
+          globalState.sortOrder = Constant.ASC;
           getData = await controllerWinnersSection.getWinnersHandler(curPage, Constant.WINS, Constant.ASC);
         } else if (target.classList.contains(Constant.DESC)) {
+          globalState.sortOrder = Constant.DESC;
           getData = await controllerWinnersSection.getWinnersHandler(curPage, Constant.WINS, Constant.DESC);
         }
         break;
       }
       case Constant.BEST_TIME: {
+        globalState.sortBy = Constant.TIME;
         target.previousElementSibling?.classList.remove(Constant.ASC, Constant.DESC);
         if (target.classList.contains(Constant.ASC)) {
           target.classList.remove(Constant.ASC);
@@ -41,8 +45,10 @@ export default async function handlerHeaderTableLine(e: MouseEvent) {
         } else target.classList.add(Constant.ASC);
 
         if (target.classList.contains(Constant.ASC)) {
+          globalState.sortOrder = Constant.ASC;
           getData = await controllerWinnersSection.getWinnersHandler(curPage, Constant.TIME, Constant.ASC);
         } else if (target.classList.contains(Constant.DESC)) {
+          globalState.sortOrder = Constant.DESC;
           getData = await controllerWinnersSection.getWinnersHandler(curPage, Constant.TIME, Constant.DESC);
         }
         break;
@@ -55,6 +61,7 @@ export default async function handlerHeaderTableLine(e: MouseEvent) {
       const winnersData: TableWinnerDataObj[] = await createWinnersData(data);
       const newWinnerTableDiv: HTMLElement = createContainTable(winnersData);
       wrapperWinnersTable.elem.append(newWinnerTableDiv);
+      currentTarget.after(wrapperWinnersTable.elem);
     }
   }
 }

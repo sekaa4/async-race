@@ -140,7 +140,9 @@ class ModelRaceSection implements RaceSection {
       }
 
       if (mode === Constant.WINNERS) {
-        const dataObjWinners = await modelWinnersSection.getWinnersModel(page);
+        const { sortBy, sortOrder } = globalState;
+
+        const dataObjWinners = await modelWinnersSection.getWinnersModel(page, sortBy, sortOrder);
 
         if (dataObjWinners) {
           const { data } = dataObjWinners;

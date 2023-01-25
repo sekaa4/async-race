@@ -15,7 +15,7 @@ export function createContainTable(data: TableWinnerDataObj[]) {
   data.forEach((lineCar: TableWinnerDataObj, inx: number) => {
     const number = inx + Constant.ONE;
     const page = globalState.winnersPage;
-    const curNumber: number = page === Constant.ONE ? number : number + page * Constant.TEN;
+    const curNumber: number = page === Constant.ONE ? number : number + (page - Constant.ONE) * Constant.TEN;
 
     const lineWinner: HTMLDivElement = createLineWinner(lineCar, curNumber);
     winnerTableDiv.append(lineWinner);

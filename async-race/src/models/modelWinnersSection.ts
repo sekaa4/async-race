@@ -10,7 +10,7 @@ interface WinnersSection {
 }
 
 class ModelWinnersSection implements WinnersSection {
-  async getWinnersModel(page: number, sort?: string, order?: string): Promise<ReturnObjWinners | null> {
+  async getWinnersModel(page: number, sort?: string | null, order?: string | null): Promise<ReturnObjWinners | null> {
     try {
       globalState.view = Constant.WINNERS;
       let body: QueryObject[];
