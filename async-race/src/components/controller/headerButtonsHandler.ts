@@ -3,6 +3,7 @@ import globalState from '../../utils/globalState';
 import controllerWinnersSection from './ControllerWinnersSection';
 import { renderMain } from '../render/main';
 import ReturnObj from '../../interfaces/ReturnObj';
+import DataWinObject from '../../interfaces/DataWinObject';
 
 export default async function headerButtonsHandler(event: MouseEvent) {
   const { target, currentTarget } = event;
@@ -35,7 +36,10 @@ export default async function headerButtonsHandler(event: MouseEvent) {
             const { data, count } = dataWinners;
             globalState.winnersCount = count;
             renderMain(count, data, curWinnersPage);
+          } else {
+            renderMain(Constant.ZERO, [] as DataWinObject[], Constant.ONE);
           }
+
           break;
         }
         default:

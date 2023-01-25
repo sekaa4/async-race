@@ -34,4 +34,5 @@ export default function checkPageButtons(wrapperElem: HTMLElement, limit: number
 
   if (curPage > Constant.ONE) prevButton.disabled = false;
   if (curPage < pageCount) nextButton.disabled = false;
+  if (curPage > pageCount) nextButton.disabled = true;
 }

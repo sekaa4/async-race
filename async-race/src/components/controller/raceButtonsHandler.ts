@@ -8,6 +8,8 @@ import globalState from '../../utils/globalState';
 import createCarOnRace from '../elements/garage/createCarOnRace';
 import ConstantsDom from '../../models/Dom';
 import Engine from '../../interfaces/Engine';
+import checkPageButtons from '../../utils/checkPageButtons';
+import { wrapperCreateCar } from '../elements/createPageButtons';
 
 export default async function chooseButtonsHandler(e: MouseEvent, car: DataObject) {
   const { target, currentTarget } = e;
@@ -54,7 +56,9 @@ export default async function chooseButtonsHandler(e: MouseEvent, car: DataObjec
 
             if (carsOnPage && (carsOnPage.count || carsOnPage.count === 0)) {
               const { count, nextCar } = carsOnPage;
-              changeTitlePage(count);
+              globalState.carsCount = count;
+              changeTitlePage(count, page);
+              checkPageButtons(wrapperCreateCar.elem, Constant.SEVEN);
 
               if (nextCar) {
                 const addCar = createCarOnRace(nextCar);

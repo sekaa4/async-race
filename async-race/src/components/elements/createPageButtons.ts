@@ -28,8 +28,9 @@ export function createPageButtons(count: number, page: number, limit: number): H
     classes: [ConstantsDom.BUTTON_NEXT, ConstantsDom.BUTTON_PAGE, ConstantsDom.BUTTON],
     text: `${Constant.NEXT}`,
   });
-
-  countText.innerText = `${page}/${Math.ceil(count / limit)}`;
+  if (count === Constant.ZERO) {
+    countText.innerText = `${page}/${Constant.ONE}`;
+  } else countText.innerText = `${page}/${Math.ceil(count / limit)}`;
 
   createPaginationDiv.addEventListener('click', (e: MouseEvent) => {
     pageButtonsHandler(e, countText);

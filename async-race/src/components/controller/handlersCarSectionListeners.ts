@@ -36,12 +36,14 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
           if (carObj && carObj.count) {
             const { count, newCar } = carObj;
             const length: number = raceListDiv.childElementCount;
-            changeTitlePage(count);
+            globalState.carsCount = count;
 
             if (length < Constant.SEVEN && newCar) {
               const carOnRace: HTMLDivElement = createCarOnRace(newCar);
               raceListDiv.append(carOnRace);
             }
+            changeTitlePage(count, page);
+            checkPageButtons(wrapperCreateCar.elem, Constant.SEVEN);
           }
           break;
         }

@@ -35,8 +35,18 @@ class ModelRaceSection implements RaceSection {
         { key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` },
         { key: `${Constant.PAGE}`, value: `${page}` },
       ]);
-      const winnerExists: DataWinObject | null = await api.getWinner(id);
-      if (winnerExists) await api.deleteWinner(id);
+
+      const winnersObj: ReturnObjWinners | null = await api.getWinners([
+        { key: `${Constant.LIMIT}`, value: `${Constant.TEN}` },
+        { key: `${Constant.PAGE}`, value: `${page}` },
+      ]);
+      if (winnersObj) {
+        const { data } = winnersObj;
+        const isExist = data.find((winner: DataWinObject) => winner.id === id);
+        if (isExist) {
+          await api.deleteWinner(id);
+        }
+      }
 
       if (isRemove && carsObj) {
         const { data, count } = carsObj;
