@@ -14,8 +14,6 @@ export default async function getWinners(queryParams: QueryObject[] = []): Promi
       const data: DataWinObject[] = await resp.json();
       const count = Number(resp.headers.get('X-Total-Count'));
 
-      if (!count) return null;
-
       const returnObj: ReturnObjWinners = { data, count };
       return returnObj;
     }

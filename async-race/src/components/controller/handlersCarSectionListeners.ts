@@ -68,7 +68,6 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
         case Constant.RACE: {
           await lockButtons(true);
           globalState.engineCarsStatus.clear();
-          const { view } = globalState;
           const buttonReset: HTMLButtonElement = <HTMLButtonElement>target.nextElementSibling;
 
           globalState.isRace = true;
@@ -97,18 +96,17 @@ export default async function handlersCarSectionListeners(e: MouseEvent, inputOb
             curButton.disabled = false;
           });
           globalState.isAllCarsReady = true;
-          const promiseResultEngine: Engine | null = await Promise.any(
-            svgCarsCollection.map(async (elem, inx) => {
-              const resObj: Engine | null = promiseResult[inx];
-              if (resObj) {
-                const id = Number(elem.id);
-                return controllerRaceSection.switchEngineHandler(id, Constant.DRIVE, resObj, elem);
-              }
-              return null;
-            })
-          );
+          const newArrEngine = svgCarsCollection.map(async (elem, inx) => {
+            const resObj: Engine | null = promiseResult[inx];
+            if (resObj) {
+              const id = Number(elem.id);
+              return controllerRaceSection.switchEngineHandler(id, Constant.DRIVE, resObj, elem);
+            }
+            return null;
+          });
+          const promiseResultEngine: Engine | null = await Promise.any(newArrEngine);
           globalState.isRace = false;
-
+          const { view } = globalState;
           if (promiseResultEngine) {
             const carWinnerObj: DataWinObjectName | null = await controllerRaceSection.winnerHandler(
               promiseResultEngine

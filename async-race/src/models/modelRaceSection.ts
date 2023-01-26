@@ -162,26 +162,35 @@ class ModelRaceSection implements RaceSection {
   async carWinnerModel(carEngine: CarEngine, duration: number): Promise<DataWinObject | null> {
     try {
       const newId: number = carEngine[Constant.ZERO];
-      const winnerExists: DataWinObject | null = await api.getWinner(newId);
-      if (winnerExists) {
-        const { id, time, wins } = winnerExists;
-        if (time > duration) {
-          const countWins: number = wins + Constant.ONE;
-          const updateWinObj: UpdateWinObj = { time: duration, wins: countWins };
-          return await api.updateWinner(id, updateWinObj);
+      const winnersObj: ReturnObjWinners | null = await api.getWinners();
+      if (winnersObj) {
+        const { data } = winnersObj;
+        const isExist = data.find((winner: DataWinObject) => winner.id === newId);
+        if (isExist) {
+          const winnerExists: DataWinObject | null = await api.getWinner(newId);
+          if (winnerExists) {
+            const { id, time, wins } = winnerExists;
+            if (time > duration) {
+              const countWins: number = wins + Constant.ONE;
+              const updateWinObj: UpdateWinObj = { time: duration, wins: countWins };
+              return await api.updateWinner(id, updateWinObj);
+            }
+            const countWins: number = wins + Constant.ONE;
+            const updateWinObj: UpdateWinObj = { time, wins: countWins };
+            const isUpdate: DataWinObject | null = await api.updateWinner(id, updateWinObj);
+            if (isUpdate) {
+              const returnWinObj: DataWinObject = { id, time: duration, wins: countWins };
+              return returnWinObj;
+            }
+          }
         }
-        const countWins: number = wins + Constant.ONE;
-        const updateWinObj: UpdateWinObj = { time, wins: countWins };
-        const isUpdate: DataWinObject | null = await api.updateWinner(id, updateWinObj);
-        if (isUpdate) {
-          const returnWinObj: DataWinObject = { id, time: duration, wins: countWins };
-          return returnWinObj;
-        }
+
+        const wins: number = Constant.ONE;
+        const newWinObj: DataWinObject = { time: duration, wins, id: newId };
+        return await api.createWinner(newWinObj);
       }
 
-      const wins: number = Constant.ONE;
-      const newWinObj: DataWinObject = { time: duration, wins, id: newId };
-      return await api.createWinner(newWinObj);
+      return null;
     } catch (error) {
       return null;
     }
