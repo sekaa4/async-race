@@ -1,8 +1,9 @@
 import LockButtons from '../interfaces/LockButtons';
 import Constant from '../models/Constant';
+import ConstantsDom from '../models/Dom';
 
 export default async function lockButtons(option: boolean): Promise<void> {
-  const buttonsCollection = <NodeListOf<HTMLButtonElement>>document.querySelectorAll('.button');
+  const buttonsCollection = <NodeListOf<HTMLButtonElement>>document.querySelectorAll(`.${ConstantsDom.BUTTON}`);
   const textButtons: Constant[] = [
     Constant.CREATE,
     Constant.SELECT,

@@ -2,15 +2,16 @@ import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
 import globalState from '../../../utils/globalState';
 import Constant from '../../../models/Constant';
+import Attrs from '../../../models/Attrs';
 
 export const inputUpdateText: HTMLInputElement = createElement(ConstantsDom.INPUT, HTMLInputElement, {
   classes: [ConstantsDom.INPUT_TEXT, ConstantsDom.UPDATE_LINE_INPUT, ConstantsDom.INPUT],
-  attributes: [['type', 'text']],
+  attributes: [[`${Attrs.TYPE}`, `${Attrs.TEXT}`]],
 });
 
 export const inputUpdateColor: HTMLInputElement = createElement(ConstantsDom.INPUT, HTMLInputElement, {
   classes: [ConstantsDom.INPUT_COLOR],
-  attributes: [['type', 'color']],
+  attributes: [[`${Attrs.TYPE}`, `${Attrs.COLOR}`]],
 });
 
 export const updateButton: HTMLButtonElement = createElement(ConstantsDom.BUTTON, HTMLButtonElement, {

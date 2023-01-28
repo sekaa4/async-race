@@ -1,18 +1,21 @@
 import '../../assets/icons/car.svg';
 import '../../assets/icons/flag.svg';
 import SVGParams from '../../interfaces/SVGParams';
+import Attrs from '../../models/Attrs';
+import Constant from '../../models/Constant';
+import ConstantsDom from '../../models/Dom';
 
 export default function createSVGElement(anchor?: string, { fill, id }: SVGParams = {}): SVGSVGElement {
-  const svgElem: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const useSvg: SVGUseElement = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  useSvg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${anchor}`);
+  const svgElem: SVGSVGElement = document.createElementNS(Constant.SVGURL, ConstantsDom.SVG);
+  const useSvg: SVGUseElement = document.createElementNS(Constant.SVGURL, ConstantsDom.USE);
+  useSvg.setAttributeNS(Constant.XLINK, ConstantsDom.HREF, `#${anchor}`);
 
   if (anchor && fill && id) {
-    svgElem.setAttribute('class', `${anchor}-svg`);
-    svgElem.setAttribute('fill', `${fill}`);
-    svgElem.setAttribute('id', `${id}`);
+    svgElem.setAttribute(Attrs.CLASS, `${anchor}-svg`);
+    svgElem.setAttribute(Attrs.FILL, `${fill}`);
+    svgElem.setAttribute(Attrs.ID, `${id}`);
   } else if (anchor) {
-    svgElem.setAttribute('class', `${anchor}-svg`);
+    svgElem.setAttribute(Attrs.CLASS, `${anchor}-svg`);
   }
 
   svgElem.append(useSvg);

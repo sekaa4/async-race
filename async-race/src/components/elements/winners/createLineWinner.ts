@@ -1,4 +1,5 @@
 import TableWinnerDataObj from '../../../interfaces/TableWinnerObj';
+import Attrs from '../../../models/Attrs';
 import Constant from '../../../models/Constant';
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
@@ -9,7 +10,7 @@ export default function createLineWinner(lineCar: TableWinnerDataObj, number: nu
   const timeSec = (time / Constant.ONETHOUSAND).toFixed(Constant.TWO);
   const lineWinner: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
     classes: [ConstantsDom.LINE],
-    attributes: [['data-id', `${id}`]],
+    attributes: [[`${Attrs.DATA_ID}`, `${id}`]],
   });
 
   createElement(ConstantsDom.SPAN, HTMLSpanElement, {

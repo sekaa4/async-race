@@ -21,6 +21,7 @@ const globalState: GlobalState = {
   sortBy: null,
   sortOrder: null,
   animation: [],
+  baseUrl: `${Constant.BASEURL}`,
 };
 
 export default globalState;

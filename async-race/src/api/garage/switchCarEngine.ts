@@ -2,18 +2,19 @@ import Path from '../../models/Path';
 import generateQueryString from '../../utils/generateQueryString';
 import QueryObject from '../../interfaces/QueryObject';
 import Constant from '../../models/Constant';
+import Methods from '../../models/Methods';
 
-const baseUrl = 'http://127.0.0.1:3000';
+const baseUrl = Constant.BASEURL;
 
 export default async function switchCarEngine(signal: AbortSignal, queryParams: QueryObject[] = []) {
   const resp = await fetch(`${baseUrl}${Path.ENGINE}${generateQueryString(queryParams)}`, {
-    method: `${Constant.PATCH}`,
+    method: `${Methods.PATCH}`,
     signal,
   });
-  if (resp.status === 200) {
+  if (resp.status === Constant.STATUSCODE200) {
     return true;
   }
-  if (resp.status === 500) {
+  if (resp.status === Constant.ERRORCODE500) {
     return false;
   }
   return null;

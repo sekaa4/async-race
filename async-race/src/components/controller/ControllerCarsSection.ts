@@ -3,6 +3,7 @@ import DataObject from '../../interfaces/DataObject';
 import ReturnObj from '../../interfaces/ReturnObj';
 import modelCarSection from '../../models/modelCreateSection';
 import ControllerCarsSection from '../../interfaces/ControllerCarSection';
+import Constant from '../../models/Constant';
 
 class ControllerCarSection implements ControllerCarsSection {
   async createHandler(
@@ -11,7 +12,7 @@ class ControllerCarSection implements ControllerCarsSection {
     inputColor: HTMLInputElement
   ): Promise<ReturnObj | null> {
     const target: HTMLButtonElement = <HTMLButtonElement>e.target;
-    if (target.innerText === 'CREATE') {
+    if (target.innerText === Constant.CREATE) {
       target.disabled = true;
       const valueText = inputText.value;
       const valueColor = inputColor.value;
@@ -26,7 +27,7 @@ class ControllerCarSection implements ControllerCarsSection {
   async updateHandler(e: MouseEvent, inputText: HTMLInputElement, inputColor: HTMLInputElement, oldName?: string) {
     const target: HTMLButtonElement = <HTMLButtonElement>e.target;
     try {
-      if (target.innerText === 'UPDATE') {
+      if (target.innerText === Constant.UPDATE) {
         target.disabled = true;
         const valueText = inputText.value;
         const valueColor = inputColor.value;

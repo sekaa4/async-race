@@ -3,8 +3,9 @@ import Path from '../../models/Path';
 import generateQueryString from '../../utils/generateQueryString';
 import QueryObject from '../../interfaces/QueryObject';
 import ReturnObj from '../../interfaces/ReturnObj';
+import Constant from '../../models/Constant';
 
-const baseUrl = 'http://127.0.0.1:3000';
+const baseUrl = Constant.BASEURL;
 
 export default async function getCars(queryParams: QueryObject[] = []): Promise<ReturnObj> {
   const resp: Response = await fetch(`${baseUrl}${Path.GARAGE}${generateQueryString(queryParams)}`);

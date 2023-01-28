@@ -1,4 +1,5 @@
 import DataWinObjectName from '../../../interfaces/DataWinObjectName';
+import Attrs from '../../../models/Attrs';
 import Constant from '../../../models/Constant';
 import ConstantsDom from '../../../models/Dom';
 import createElement from '../createElement';
@@ -25,5 +26,5 @@ export default function createWinModal(winCar: DataWinObjectName) {
     }
   });
   document.body.append(wrapperWinModal.elem);
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = Attrs.HIDDEN;
 }

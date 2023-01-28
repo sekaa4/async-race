@@ -3,6 +3,7 @@ import createElement from '../createElement';
 import DataObject from '../../../interfaces/DataObject';
 import globalState from '../../../utils/globalState';
 import Constant from '../../../models/Constant';
+import Attrs from '../../../models/Attrs';
 
 export default function createChooseButtons(car: DataObject): HTMLDivElement {
   const chooseButtons: HTMLDivElement = createElement(ConstantsDom.DIV, HTMLDivElement, {
@@ -24,7 +25,7 @@ export default function createChooseButtons(car: DataObject): HTMLDivElement {
 
   const nameCar: HTMLSpanElement = createElement(ConstantsDom.SPAN, HTMLSpanElement, {
     classes: [ConstantsDom.NAME_CAR],
-    attributes: [['data-name', `${car.name}`]],
+    attributes: [[`${Attrs.DATA_NAME}`, `${car.name}`]],
     text: `${car.name}`,
   });
 

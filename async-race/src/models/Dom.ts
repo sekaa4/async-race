@@ -9,6 +9,8 @@ enum ConstantsDom {
   H3 = 'h3',
   P = 'p',
   A = 'a',
+  SVG = 'svg',
+  USE = 'use',
   HREF = 'href',
   LABEL = 'label',
   FOR = 'for',
@@ -121,5 +123,6 @@ enum ConstantsDom {
   GITHUB_SERGEY = 'https://github.com/sekaa4',
   MODAL = 'modal',
   WIN_MODAL = 'win-modal',
+  CAR_SVG = 'car-svg',
 }
 export default ConstantsDom;

@@ -26,13 +26,8 @@ enum Constant {
   ID = 'id',
   STATUS = 'status',
   LIMIT = '_limit',
-  PAGE = '_page',
   MAINPAGE = 'PAGE',
-  PATCH = 'PATCH',
-  GET = 'GET',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-  POST = 'POST',
+  PAGE = '_page',
   GARAGE = 'GARAGE',
   WINNERS = 'WINNERS',
   PREVIOUS = 'PREVIOUS',
@@ -64,6 +59,11 @@ enum Constant {
   DESC = 'DESC',
   WINS = 'wins',
   TIME = 'time',
+  BASEURL = 'http://127.0.0.1:3000',
+  SVGURL = 'http://www.w3.org/2000/svg',
+  XLINK = 'http://www.w3.org/1999/xlink',
+  UNDEFINED = 'undefined',
+  DATA_CARS = 'data-cars',
 }
 
 export default Constant;

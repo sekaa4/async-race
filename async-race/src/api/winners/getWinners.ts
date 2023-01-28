@@ -5,7 +5,7 @@ import ReturnObjWinners from '../../interfaces/ReturnObjWinners';
 import DataWinObject from '../../interfaces/DataWinObject';
 import Constant from '../../models/Constant';
 
-const baseUrl = 'http://127.0.0.1:3000';
+const baseUrl = Constant.BASEURL;
 
 export default async function getWinners(queryParams: QueryObject[] = []): Promise<ReturnObjWinners | null> {
   try {

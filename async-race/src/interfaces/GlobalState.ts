@@ -24,6 +24,7 @@ interface GlobalState {
   sortBy: null | `${Constant.WINS}` | `${Constant.TIME}`;
   sortOrder: null | `${Constant.ASC}` | `${Constant.DESC}`;
   animation: [];
+  baseUrl: string;
 }
 
 export default GlobalState;

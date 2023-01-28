@@ -4,11 +4,11 @@ import Constant from '../models/Constant';
 
 export default function changeTitlePage(count?: number, page?: number) {
   if (page && count) {
-    raceTitle.innerText = `GARAGE(${count})`;
-    racePage.innerText = `PAGE #${page}`;
+    raceTitle.innerText = `${Constant.GARAGE}(${count})`;
+    racePage.innerText = `${Constant.MAINPAGE} #${page}`;
     countText.innerText = `${page}/${Math.ceil(count / Constant.SEVEN)}`;
     return;
   }
-  if (page) racePage.innerText = `PAGE #${page}`;
-  if (count || count === Constant.ZERO) raceTitle.innerText = `GARAGE(${count})`;
+  if (page) racePage.innerText = `${Constant.MAINPAGE} #${page}`;
+  if (count || count === Constant.ZERO) raceTitle.innerText = `${Constant.GARAGE}(${count})`;
 }

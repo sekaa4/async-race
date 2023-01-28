@@ -2,7 +2,7 @@ import Path from '../../models/Path';
 import Constant from '../../models/Constant';
 import DataWinObject from '../../interfaces/DataWinObject';
 
-const baseUrl = 'http://127.0.0.1:3000';
+const baseUrl = Constant.BASEURL;
 
 export default async function getWinner(id: number): Promise<DataWinObject | null> {
   try {

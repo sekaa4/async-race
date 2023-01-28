@@ -2,13 +2,14 @@ import Path from '../../models/Path';
 import DataObject from '../../interfaces/DataObject';
 import Constant from '../../models/Constant';
 import UpdateData from '../../interfaces/UpdateData';
+import Methods from '../../models/Methods';
 
-const baseUrl = 'http://127.0.0.1:3000';
+const baseUrl = Constant.BASEURL;
 
 export default async function updateCar(id: number, body: UpdateData): Promise<null | DataObject> {
   try {
     const resp: Response = await fetch(`${baseUrl}${Path.GARAGE}/${id}`, {
-      method: 'PUT',
+      method: `${Methods.PUT}`,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });

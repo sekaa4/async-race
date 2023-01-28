@@ -23,7 +23,7 @@ class ModelCreateSection implements CreateSection {
       };
 
       const newCar: DataObject | null = await api.createCar(body);
-      const dataCars: null | ReturnObj = await api.getCars([{ key: '_limit', value: `${Constant.SEVEN}` }]);
+      const dataCars: null | ReturnObj = await api.getCars([{ key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` }]);
 
       if (dataCars && (dataCars.count || dataCars.count === 0)) {
         const { count, data } = dataCars;
@@ -70,7 +70,7 @@ class ModelCreateSection implements CreateSection {
       );
       const randomCarsData: Data = randomCarsArray.filter((dataCar) => dataCar || false) as Data;
 
-      const dataCars: null | ReturnObj = await api.getCars([{ key: '_limit', value: `${Constant.SEVEN}` }]);
+      const dataCars: null | ReturnObj = await api.getCars([{ key: `${Constant.LIMIT}`, value: `${Constant.SEVEN}` }]);
 
       if (dataCars && (dataCars.count || dataCars.count === 0)) {
         const { count } = dataCars;

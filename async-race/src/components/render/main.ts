@@ -11,10 +11,11 @@ import DataWinObject from '../../interfaces/DataWinObject';
 import { createTableWinners } from '../elements/winners/createTableWinners';
 import { createWinnersTitlePage } from '../elements/winners/createWinnersTitlePage';
 import createHeaderTable from '../elements/winners/createHeaderTable';
+import Attrs from '../../models/Attrs';
 
 export const main: HTMLElement = createElement(ConstantsDom.MAIN, HTMLElement, {
   classes: [ConstantsDom.MAIN],
-  attributes: [['id', 'app']],
+  attributes: [[Attrs.ID, Attrs.APP]],
 });
 
 export async function renderMain(count: number, data: Data | DataWinObject[], page: number): Promise<HTMLElement> {
