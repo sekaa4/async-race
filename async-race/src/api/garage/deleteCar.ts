@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Path from '../../models/Path';
 import Constant from '../../models/Constant';
 import Methods from '../../models/Methods';
@@ -12,8 +13,9 @@ export default async function deleteCar(id: number): Promise<boolean> {
     if (resp.status === Constant.STATUSCODE200) {
       return true;
     }
-    return false;
-  } catch (error) {
-    return false;
+    throw new Error('Car does not deleted, try one more time');
+  } catch (err) {
+    if (err instanceof Error) console.log(err.message);
+    throw err;
   }
 }

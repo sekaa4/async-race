@@ -18,7 +18,7 @@ export default async function createCar(body: UpdateData): Promise<DataObject | 
       newCar = await resp.json();
       return newCar;
     }
-    throw new Error('Something wrong status');
+    throw new Error('Car does not created, try one more time');
   } catch (err) {
     return null;
   }

@@ -19,7 +19,7 @@ export default function renderFooter(): HTMLElement {
   createElement(ConstantsDom.SPAN, HTMLElement, {
     parentElement: footerCopy,
     classes: [ConstantsDom.FOOTER_SPAN_COPY],
-    text: '2023 © All rights reserved',
+    text: `${ConstantsDom.RESERVED}`,
   });
 
   createElement(ConstantsDom.DIV, HTMLElement, {

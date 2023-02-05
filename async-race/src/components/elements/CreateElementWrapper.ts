@@ -1,5 +1,6 @@
 import createElement from './createElement';
 import CreateElementParams from '../../interfaces/CreateElementParams';
+import ConstantsDom from '../../models/Dom';
 
 export default class CreateElementWrapper {
   public readonly elem: HTMLDivElement;
@@ -16,7 +17,7 @@ export default class CreateElementWrapper {
 
   chooseElem<T extends typeof Element>(className: string | string[]) {
     if (this.elem instanceof HTMLElement) {
-      if (className && typeof className === 'string') {
+      if (className && typeof className === ConstantsDom.STRING) {
         const elem: Element | null = this.elem.querySelector(`.${className}`);
         if (elem) return elem as InstanceType<T>;
         throw new Error("Element doesn't exist in DOM");

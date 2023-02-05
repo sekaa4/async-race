@@ -116,6 +116,7 @@ enum ConstantsDom {
   GITHUB = 'GitHub',
   NAME_RSSCHOOL = 'The Rolling Scopes School',
   RSSCHOOL = 'https://rs.school/js/',
+  RESERVED = '2023 © All rights reserved',
   TEXT_NAME = 'text-name',
   ARTICLE = 'article',
   TEST = 'test',
